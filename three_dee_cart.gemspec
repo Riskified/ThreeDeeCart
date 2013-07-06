@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'threedeecart/version'
+require 'three_dee_cart/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "threedeecart"
-  spec.version       = Threedeecart::VERSION
+  spec.name          = "ThreeDeeCart"
+  spec.version       = ThreeDeeCart::VERSION
   spec.authors       = ["Elad Meidar"]
   spec.email         = ["elad@shinobidevs.com"]
   spec.description   = "An API Library for 3DCart e-commerce application"

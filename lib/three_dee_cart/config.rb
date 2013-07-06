@@ -1,4 +1,4 @@
-module Threedeecart
+module ThreeDeeCart
   
   module Exceptions
     class MissingApiKey < RuntimeError; end;
@@ -28,11 +28,11 @@ module Threedeecart
         self.wsdl = config["wsdl"]
         self.api_key = config["api_key"]
       else
-        raise Threedeecart::Exceptions::MissingConfigurationFile, "cannot find #{yaml_location} 3dcart configuration file"
+        raise ThreeDeeCart::Exceptions::MissingConfigurationFile, "cannot find #{yaml_location} 3dcart configuration file"
       end
 
       if self.api_key.blank?
-        raise(Threedeecart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
+        raise(ThreeDeeCart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
       end
       self
     end
@@ -43,7 +43,7 @@ module Threedeecart
       yield config
 
       if config.api_key.blank?
-        raise(Threedeecart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
+        raise(ThreeDeeCart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
       end
       config
     end
