@@ -9,7 +9,7 @@ module ThreeDeeCart
   @@configuration = nil
 
   def self.load_configuration(config_file)
-    @@configurtion = ThreeDeeCart::Config.load_configuration_from_file(config_file)
+    @@configuration = ThreeDeeCart::Config.load_configuration_from_file(config_file)
   end
 
   def self.config(&block)
@@ -20,7 +20,7 @@ module ThreeDeeCart
     @@configuration
   end
 
-  def client
+  def self.client
     @@client ||= Savon.client(wsdl: self.configuration.wsdl)
   end
 end

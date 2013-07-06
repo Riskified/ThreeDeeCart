@@ -21,11 +21,11 @@ module ThreeDeeCart
       ThreeDeeCart.client
     end
 
-    def self.mapping(method_name, operation, options = {})
+    def self.mapping(method_name, operation)
 
       self.class_eval do
-        define_singleton_method(method_name) do |options|
-          self.client.call(operation.to_sym, options)
+        define_singleton_method(method_name) do |request_options|
+          self.client.call(operation.to_sym, request_options)
         end
       end
     end
