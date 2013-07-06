@@ -5,6 +5,7 @@ module ThreeDeeCart
 
     attr_accessor :customer_id
     attr_accessor :user_id
+    attr_accessor :password
     attr_reader   :billing_address
     attr_reader   :shipping_address
     attr_reader   :comments
