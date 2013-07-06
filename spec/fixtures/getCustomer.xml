@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?> <CustomersRequestResponse xmlns="">
+<Customer> <CustomerID>29</CustomerID> <UserID /> <Password>123456</Password>
+<BillingAddress> <FirstName>John</FirstName> <LastName>Brown</LastName>
+<Address>111 BRANCH MORR DR</Address> <Address2 />
+<City>Margate</City> <StateCode>FL</StateCode> <ZipCode>33063</ZipCode> <CountryCode>US</CountryCode>
+<Company /> <Phone>1234567897</Phone> <Email>john@email.com</Email>
+</BillingAddress> <ShippingAddress>
+<FirstName>John</FirstName> <LastName>Brown</LastName>
+<Address>111 BRANCH MORR DR </Address> <Address2 />
+<City>Margate</City> <StateCode>FL</StateCode> <ZipCode>33063</ZipCode> <CountryCode>US</CountryCode>
+<Company />
+<Phone>12345678945</Phone>
+</ShippingAddress>
+<Comments /> <LastLoginDate>2/17/2007</LastLoginDate> <WebSite />
+<DiscountGroup />
+<CustOther1 /> <AccountNumber>1333</AccountNumber> <MailList>1</MailList> <CustomerType>0</CustomerType> <LastUpdate>2/17/2007</LastUpdate> <CustEnabled>1</CustEnabled> <AditionalFields>
+<AdditionalField1 /> <AdditionalField2 /> <AdditionalField3 /> <AdditionalField4 />
+</AditionalFields>
+</Customer> </CustomersRequestResponse>
