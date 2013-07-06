@@ -1,7 +1,10 @@
-require 'three_dee_cart/config'
-require "three_dee_cart/version"
 
 module ThreeDeeCart
+
+  autoload :Config,   'three_dee_cart/config'
+  autoload :Base,     'three_dee_cart/base'
+  autoload :Customer, 'three_dee_cart/customer'
+  autoload :Version,  "three_dee_cart/version"
 
   @@configuration = nil
 
@@ -15,5 +18,9 @@ module ThreeDeeCart
 
   def self.configuration
     @@configuration
+  end
+
+  def client
+    @@client ||= Savon.client(wsdl: self.configuration.wsdl)
   end
 end
