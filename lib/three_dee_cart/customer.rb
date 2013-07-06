@@ -21,24 +21,28 @@ module ThreeDeeCart
     attr_reader   :additional_fields
     
     def billing_address=(value)
-      @billing_address = ThreeDeeCart::BillingAddress.new(value)
+      @billing_address = ThreeDeeCart::BillingAddress.new(value) if value.present?
     end
 
     def shipping_address=(value)
-      @shipping_address = ThreeDeeCart::ShippingAddress.new(value)
+      @shipping_address = ThreeDeeCart::ShippingAddress.new(value) if value.present? 
     end
 
     def comments=(value)
       @comments = []
-      value.each_pair do |key, comment|
-        @comments << comment
+      if value.present?
+        value.each_pair do |key, comment|
+          @comments << comment
+        end
       end
     end
 
     def additional_fields=(value)
       @additional_fields = []
-      value.each_pair do |key, field|
-        @additional_fields << field
+      if value.present?
+        value.each_pair do |key, field|
+          @additional_fields << field
+        end
       end
     end
   end
