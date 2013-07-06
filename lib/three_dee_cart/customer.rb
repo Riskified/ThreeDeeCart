@@ -5,9 +5,6 @@ module ThreeDeeCart
 
     attr_accessor :customer_id
     attr_accessor :user_id
-    attr_reader   :billing_address
-    attr_reader   :shipping_address
-    attr_reader   :comments
     attr_accessor :last_login_date
     attr_accessor :website
     attr_accessor :discount_group
@@ -17,6 +14,9 @@ module ThreeDeeCart
     attr_accessor :customer_type
     attr_accessor :last_update
     attr_accessor :cust_enabled
+    attr_reader   :billing_address
+    attr_reader   :shipping_address
+    attr_reader   :comments
     attr_reader   :additional_fields
     
     def billing_address=(value)

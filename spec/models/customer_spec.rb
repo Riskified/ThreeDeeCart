@@ -28,8 +28,9 @@ describe ThreeDeeCart::Customer do
     it "should return as successful" do
       fixture = File.read("spec/fixtures/getCustomer.xml")
 
-      savon.expects(:get_customer).with({message: {id: 1}}).returns("elad")
-      user = ThreeDeeCart::Customer.find({id: 1})
+      savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomer.xml"))
+      user_data = ThreeDeeCart::Customer.find({id: 1})
+      puts ThreeDeeCart::Customer.new(user_data.hash[:customers_request_response][:customer])
 
       expect(user).to be_successful
     end
