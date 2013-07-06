@@ -29,10 +29,11 @@ describe ThreeDeeCart::Customer do
       fixture = File.read("spec/fixtures/getCustomer.xml")
 
       savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomer.xml"))
-      user_data = ThreeDeeCart::Customer.find({id: 1})
-      puts ThreeDeeCart::Customer.new(user_data.hash[:customers_request_response][:customer])
-
-      expect(user).to be_successful
+      customer_data = ThreeDeeCart::Customer.find({id: 1})
+      customer = ThreeDeeCart::Customer.new(customer_data.hash[:customers_request_response][:customer])
+      customer.customer_id.to_i.should eq(29)
+      customer.shipping_address.first_name.should eq("John")
+      expect(customer_data).to be_successful
     end
   end
 end

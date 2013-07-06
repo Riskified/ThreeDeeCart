@@ -7,7 +7,7 @@ module ThreeDeeCart
     attr_accessor :user_id
     attr_accessor :password
     attr_accessor :last_login_date
-    attr_accessor :website
+    attr_accessor :web_site
     attr_accessor :discount_group
     attr_accessor :cust_other1
     attr_accessor :account_number
