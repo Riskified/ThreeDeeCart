@@ -2,8 +2,12 @@
 module ThreeDeeCart
 
   autoload :Config,   'three_dee_cart/config'
+  autoload :Root,     'three_dee_cart/root'
   autoload :Base,     'three_dee_cart/base'
   autoload :Customer, 'three_dee_cart/customer'
+  autoload :Address, 'three_dee_cart/address'
+  autoload :BillingAddress, 'three_dee_cart/billing_address'
+  autoload :ShippingAddress, 'three_dee_cart/shipping_address'
   autoload :Version,  "three_dee_cart/version"
 
   @@configuration = nil
