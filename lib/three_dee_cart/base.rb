@@ -25,7 +25,7 @@ module ThreeDeeCart
 
       self.class_eval do
         define_singleton_method(method_name) do |request_options|
-          self.client.call(operation.to_sym, request_options)
+          self.client.call(operation.to_sym, {message: request_options})
         end
       end
     end
