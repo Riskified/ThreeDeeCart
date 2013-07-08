@@ -13,7 +13,7 @@
 </ShippingAddress>
 <Comments /> <LastLoginDate>2/17/2007</LastLoginDate> <WebSite />
 <DiscountGroup />
-<CustOther1 /> <AccountNumber>1333</AccountNumber> <MailList>1</MailList> <CustomerType>0</CustomerType> <LastUpdate>2/17/2007</LastUpdate> <CustEnabled>1</CustEnabled> <AditionalFields>
+<CustOther1 /> <AccountNumber>1333</AccountNumber> <MailList>1</MailList> <CustomerType>0</CustomerType> <LastUpdate>2/17/2007</LastUpdate> <CustEnabled>1</CustEnabled> <AdditionalFields>
 <AdditionalField1 /> <AdditionalField2 /> <AdditionalField3 /> <AdditionalField4 />
-</AditionalFields>
+</AdditionalFields>
 </Customer> </CustomersRequestResponse>
