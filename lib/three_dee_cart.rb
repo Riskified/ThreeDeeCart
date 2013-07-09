@@ -13,6 +13,15 @@ module ThreeDeeCart
   autoload :AffiliateInformation, 'three_dee_cart/affiliate_information'
   autoload :Shipment, 'three_dee_cart/shipment'
   autoload :Item, 'three_dee_cart/item'
+  
+  autoload :Product, 'three_dee_cart/product'
+  autoload :Category, 'three_dee_cart/category'
+  autoload :EProduct, 'three_dee_cart/e_product'
+  autoload :Rewards, 'three_dee_cart/rewards'
+  autoload :Image, 'three_dee_cart/image'
+  autoload :Option, 'three_dee_cart/option'
+  autoload :Value, 'three_dee_cart/value'
+
   autoload :Version,  "three_dee_cart/version"
 
   @@configuration = nil
