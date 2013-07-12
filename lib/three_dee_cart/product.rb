@@ -83,22 +83,17 @@ module ThreeDeeCart
     end
 
     def extra_fields=(value)
-      @extra_fields = []
+      
       if not value.nil?
-        value.each_pair do |key, extra_field|
-          @extra_fields << extra_field
-        end
+        @extra_fields = value.values
       end
 
       @extra_fields
     end
 
     def price_levels=(value)
-      @price_levels = []
       if not value.nil?
-        value.each_pair do |key, price_level|
-          @price_levels << price_level
-        end
+        @price_levels = value.values
       end
 
       @price_levels
