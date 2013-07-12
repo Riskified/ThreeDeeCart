@@ -1,6 +1,9 @@
 module ThreeDeeCart
   module Exceptions
     class InvalidAttribute < ArgumentError; end
+    class InvalidAttributeType < ArgumentError 
+      DEFAULT_MESSAGE = "%s has an invalid attribute type %s for #{self.class}"
+    end
   end
 
   class Root
