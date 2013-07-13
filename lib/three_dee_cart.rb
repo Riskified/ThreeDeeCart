@@ -31,7 +31,7 @@ module ThreeDeeCart
   end
 
   def self.config(&block)
-    @@configuration = yield(ThreeDeeCart::Config)
+    @@configuration = ThreeDeeCart::Config.config(&block)
   end
 
   def self.configuration

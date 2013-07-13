@@ -22,6 +22,7 @@ module ThreeDeeCart
     def self.api_key=(api_key)
       @@api_key = api_key
     end
+    
     def self.load_configuration_from_file(yaml_location = "")
       if File.exists?(yaml_location)
         config = YAML::load(File.open(yaml_location))
