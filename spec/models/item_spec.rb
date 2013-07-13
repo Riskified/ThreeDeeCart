@@ -33,6 +33,21 @@ describe ThreeDeeCart::Item do
     end
   end
 
+  describe "#name" do
+    
+    before(:each) do
+      @item = ThreeDeeCart::Item.new(@valid_hash)
+    end
+
+    it "should respond to #name" do
+      @item.respond_to?(:name).should be_true
+    end
+
+    it "should return product name" do
+      @item.name.should eq(@valid_hash[:product_name])
+    end
+  end
+
   describe "#price" do
     before(:each) do
       @item = ThreeDeeCart::Item.new(@valid_hash)

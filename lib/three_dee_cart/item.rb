@@ -12,6 +12,10 @@ module ThreeDeeCart
     attr_accessor :date_added
     attr_accessor :page_added
 
+    def name
+      @product_name
+    end
+
     def price
       unit_price.to_f
     end
