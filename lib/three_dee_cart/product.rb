@@ -126,7 +126,7 @@ module ThreeDeeCart
 
       @images = []
       if not value.nil?
-        value.each do |key, category|
+        value.each do |category|
           @images << ThreeDeeCart::Image.new(category)
         end
       end
@@ -141,7 +141,7 @@ module ThreeDeeCart
 
       @options = []
       if not value.nil?
-        value.each do |key, option|
+        value.each do |option|
           @options << ThreeDeeCart::Option.new(option)
         end
       end
