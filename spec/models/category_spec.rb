@@ -10,13 +10,13 @@ describe ThreeDeeCart::Category do
   describe "#new" do
     it "should accept a valid hash to constructor" do
       lambda {
-        @option = ThreeDeeCart::Category.new(@valid_hash)
+        @category = ThreeDeeCart::Category.new(@valid_hash)
       }.should_not raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
 
     it "should raise an exception for invalid constructor hash value" do
       lambda {
-        @option = ThreeDeeCart::Category.new(@invalid_hash)
+        @category = ThreeDeeCart::Category.new(@invalid_hash)
       }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
   end  
