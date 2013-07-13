@@ -11,5 +11,17 @@ module ThreeDeeCart
     attr_accessor :weight
     attr_accessor :date_added
     attr_accessor :page_added
+
+    def price
+      unit_price.to_f
+    end
+
+    def cost
+      unit_cost.to_f
+    end
+
+    def option_price
+      @option_price.to_f
+    end
   end
 end
