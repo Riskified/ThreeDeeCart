@@ -13,6 +13,14 @@ describe ThreeDeeCart::Config do
       config.wsdl.should eq("http://example.com/?wsdl")
     end
 
+    it "should raise an error if the configuration file was not found" do
+      config_file = File.join(Dir.pwd, "spec", "fixtures", "missing_file.yml")
+
+      lambda {
+        ThreeDeeCart::Config.load_configuration_from_file(config_file)
+      }.should raise_error(ThreeDeeCart::Exceptions::MissingConfigurationFile)
+    end
+
     it "should fail if api_key is not provided" do
       config_file = File.join(Dir.pwd, "spec", "fixtures", "test_config_no_api_key.yml")
       lambda {
