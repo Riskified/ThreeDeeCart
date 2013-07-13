@@ -6,6 +6,8 @@ require 'fakeweb'
 require "savon/mock/spec_helper"
 
 require 'three_dee_cart' # and any other gems you need
+require 'simplecov'
+SimpleCov.start
 
 RSpec.configure do |config|
   # some (optional) config here
