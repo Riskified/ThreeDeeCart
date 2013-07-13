@@ -21,7 +21,7 @@ module ThreeDeeCart
   autoload :Image, 'three_dee_cart/image'
   autoload :Option, 'three_dee_cart/option'
   autoload :Value, 'three_dee_cart/value'
-
+  autoload :Request, 'three_dee_cart/request'
   autoload :Version,  "three_dee_cart/version"
 
   @@configuration = nil
@@ -39,6 +39,6 @@ module ThreeDeeCart
   end
 
   def self.client
-    @@client ||= Savon.client(wsdl: self.configuration.wsdl)
+    @@client ||= Savon.client(wsdl: self.configuration.wsdl, raise_errors: false)
   end
 end

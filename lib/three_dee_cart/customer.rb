@@ -1,8 +1,6 @@
 module ThreeDeeCart
   class Customer < ThreeDeeCart::Base
 
-    mapping :find, :get_customer
-
     attr_accessor :customer_id
     attr_accessor :user_id
     attr_accessor :password
@@ -20,6 +18,11 @@ module ThreeDeeCart
     attr_reader   :comments
     attr_reader   :additional_fields
     
+    def self.find(request_options)
+      resp = self.request(:get_customer, request_options)
+      self.new(resp[:customers_request_response][:customer])
+    end
+
     def billing_address=(value)
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
