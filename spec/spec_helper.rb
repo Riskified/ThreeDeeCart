@@ -5,3 +5,11 @@ require 'fakeweb'
 require "savon/mock/spec_helper"
 
 require 'three_dee_cart' # and any other gems you need
+require 'simplecov'
+SimpleCov.start
+
+RSpec.configure do |config|
+  # some (optional) config here
+  FakeWeb.allow_net_connect = false
+end
+>>>>>>> b92665ddecce0236bdbc057df192de7c4facc96a
