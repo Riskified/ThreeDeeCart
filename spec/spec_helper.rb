@@ -12,4 +12,3 @@ RSpec.configure do |config|
   # some (optional) config here
   FakeWeb.allow_net_connect = false
 end
->>>>>>> b92665ddecce0236bdbc057df192de7c4facc96a
