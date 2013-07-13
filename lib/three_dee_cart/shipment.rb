@@ -20,5 +20,10 @@ module ThreeDeeCart
     attr_accessor :country_code
     attr_accessor :company
     attr_accessor :phone
+
+
+    def full_name
+      [first_name, last_name].compact.join(" ")
+    end
   end
 end
