@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'bundler/setup'
-
 require 'savon'
 require 'fakeweb'
 require "savon/mock/spec_helper"
