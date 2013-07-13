@@ -64,17 +64,29 @@ module ThreeDeeCart
     attr_accessor :meta_tags
 
     def e_product=(value)
+      if value.class.name != "Hash"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["EProduct", value.class])
+      end
+
       @e_product = ThreeDeeCart::EProduct.new(value) if not value.nil?
     end
 
     def rewards=(value)
+      if value.class.name != "Hash"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Rewards", value.class])
+      end
+
       @rewards = ThreeDeeCart::Rewards.new(value) if not value.nil?
     end
     
     def categories=(value)
+      if value.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value.class])
+      end
+
       @categories = []
       if not value.nil?
-        value.each_pair do |key, category|
+        value.each do |category|
           @categories << ThreeDeeCart::Category.new(category)
         end
       end
@@ -84,6 +96,10 @@ module ThreeDeeCart
 
     def extra_fields=(value)
       
+      if value.class.name != "Hash"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Extra fields", value.class])
+      end
+
       if not value.nil?
         @extra_fields = value.values
       end
@@ -92,6 +108,10 @@ module ThreeDeeCart
     end
 
     def price_levels=(value)
+      if value.class.name != "Hash"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Price Levels", value.class])
+      end
+
       if not value.nil?
         @price_levels = value.values
       end
@@ -100,9 +120,13 @@ module ThreeDeeCart
     end
 
     def images=(value)
+      if value.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Images", value.class])
+      end
+
       @images = []
       if not value.nil?
-        value.each_pair do |key, category|
+        value.each do |key, category|
           @images << ThreeDeeCart::Image.new(category)
         end
       end
@@ -111,9 +135,13 @@ module ThreeDeeCart
     end
 
     def options=(value)
+      if value.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value.class])
+      end
+
       @options = []
       if not value.nil?
-        value.each_pair do |key, option|
+        value.each do |key, option|
           @options << ThreeDeeCart::Option.new(option)
         end
       end
