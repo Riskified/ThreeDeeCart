@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ThreeDeeCart::Option do
   
   before(:all) do
-    @valid_hash = {:id => "3434", :option_type => "cool", :values => []}
+    @valid_hash = {:id => "3434", :option_type => "cool", :values => [{}, {}]}
     @valid_hash_with_invalid_value_type = {:id => "3434", :option_type => "cool", :values => "some values"}
     @invalid_hash = {:id => "3434", :option_type => "cool", :values => [], :invalid_key => true}
   end
