@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe ThreeDeeCart::Product do
+  include Savon::SpecHelper
   
+  # set Savon in and out of mock mode
   before(:all) do
-
+    savon.mock!
+    ThreeDeeCart.load_configuration("spec/fixtures/test_config.yml")
+  
     @valid_hash = {
     :product_id => "123",
     :product_name => "Cool product",
@@ -23,7 +27,7 @@ describe ThreeDeeCart::Product do
     :depth => 300,
     :minimum_order => 1,
     :maximum_order => 2,
-    :date_create => "10/10/2010",
+    :date_created => "10/10/2010",
     :description => "Really good product",
     :extended_description => "Extendly really good product",
     :ship_cost => 20,
@@ -34,7 +38,7 @@ describe ThreeDeeCart::Product do
     :hide => false,
     :free_shipping => false,
     :non_tax => false,
-    :not_for_sale => false,
+    :not_forsale => false,
     :gift_certificate => "blabla",
     :user_id => "2",
     :last_update => "10/10/2013",
@@ -54,13 +58,15 @@ describe ThreeDeeCart::Product do
     :back_order_message => "on back order",
     :thumbnail => "www.test.com/funimg.jpg",
     :file_name => "funimg.jpg",
-    :categories => [{}, {}],
+    :use_catoptions => false,
+    :quantity_options => "bldfldslf",
+    :categories => {:category => [{}, {}]},
     :extra_fields => {},
-    :price_levels => {},
+    :price_level => {},
     :e_product => {},
     :rewards => {},
-    :images => [{}, {}],
-    :options => [{}, {}],
+    :images => {:image => [{}, {}]},
+    :options => {:option => [{}, {}]},
     :keywords => "key1, key2",
     :related_products => [],
     :meta_tags => [],
@@ -70,12 +76,37 @@ describe ThreeDeeCart::Product do
 
     @hash_with_invalid_categories = @valid_hash.merge(:categories => "string")
     @hash_with_invalid_extra_fields = @valid_hash.merge(:extra_fields => "string")
-    @hash_with_invalid_price_levels = @valid_hash.merge(:price_levels => "string")
+    @hash_with_invalid_price_level = @valid_hash.merge(:price_level => "string")
     @hash_with_invalid_e_product = @valid_hash.merge(:e_product => "string")
     @hash_with_invalid_rewards = @valid_hash.merge(:rewards => "string")
     @hash_with_invalid_images = @valid_hash.merge(:images => "string")
     @hash_with_invalid_options = @valid_hash.merge(:options => "string")
   end
+
+  after(:all)  { savon.unmock! }
+
+  describe "#find" do
+    before(:each) do
+      FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+    end
+
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should respond to #find" do
+      ThreeDeeCart::Product.respond_to?(:find).should eq(true)
+    end
+
+    it "should return as successful" do
+      fixture = File.read("spec/fixtures/getProduct.xml")
+
+      savon.expects(:get_product).with({message: {id: 1}}).returns(File.read("spec/fixtures/getProduct.xml"))
+      product = ThreeDeeCart::Product.find({id: 1})
+    end
+  end
+
+  
 
   describe "#new" do
     it "should accept a valid hash to constructor" do
@@ -105,7 +136,7 @@ describe ThreeDeeCart::Product do
 
       it "should raise an exception for invalid value for price levels object" do 
         lambda {
-          @product = ThreeDeeCart::Product.new(@hash_with_invalid_price_levels)
+          @product = ThreeDeeCart::Product.new(@hash_with_invalid_price_level)
         }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 

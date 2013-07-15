@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<GetProductDetailsResponse xmlns=""> 
+<Product> 
+ <ProductID>prod123</ProductID> 
+ <ProductName>Test Product</ProductName> 
+<Categories> 
+<Category> 
+ <CategoryID>27704</CategoryID> 
+ <CategoryName>Packaging</CategoryName> 
+ </Category> 
+<Category> 
+ <CategoryID>25848</CategoryID> 
+ <CategoryName>Test Sub</CategoryName> 
+ </Category> 
+ </Categories> 
+ <Mfgid>1221</Mfgid> 
+ <Manufacturer>Manufacturer A</Manufacturer> 
+ <Distributor>3dcart</Distributor>
+ <Cost>154.00</Cost> 
+ <Price>261.00</Price> 
+ <RetailPrice>462</RetailPrice> 
+ <SalePrice>0.00</SalePrice> 
+ <OnSale>0</OnSale> 
+ <Stock>10</Stock> 
+ <StockAlert>0</StockAlert> 
+ <Weight>1.00</Weight> 
+ <Width>0.00</Width> 
+ <Height>0.00</Height> 
+ <Depth>0.00</Depth> 
+ <MinimumOrder>1</MinimumOrder> 
+ <MaximumOrder>0</MaximumOrder> 
+ <DateCreated>9/1/2008</DateCreated> 
+ <Description>Test product description</Description> 
+ <ExtendedDescription>Product description...</ExtendedDescription> 
+ <Keywords>keyword, test, product, buy, store</Keywords> 
+ <RelatedProducts /> 
+ <ShipCost>0.00</ShipCost> 
+ <Title>Product title…</Title> 
+ <MetaTags /> 
+ <DisplayText /> 
+ <HomeSpecial>0</HomeSpecial> 
+ <CategorySpecial>0</CategorySpecial> 
+ <Hide>0</Hide> 
+ <FreeShipping>0</FreeShipping> 
+ <NonTax>0</NonTax> 
+ <NotForsale>0</NotForsale> 
+ <GiftCertificate>0</GiftCertificate> 
+ <UserId>John Admin</UserId> 
+ <LastUpdate>8/1/2008</LastUpdate> 
+<ExtraFields> 
+ <ExtraField1 /> 
+ <ExtraField2 /> 
+ <ExtraField3 /> 
+ <ExtraField4 /> 
+ <ExtraField5 /> 
+ <ExtraField6 /> 
+ <ExtraField7 /> 
+ <ExtraField8 /> 
+ <ExtraField9 /> 
+ <ExtraField10 /> 
+ </ExtraFields> 
+ <UseCatoptions>0</UseCatoptions> 
+ <QuantityOptions /> 
+<PriceLevel> 
+ <Price_1>0</Price_1> 
+ <Price_2>0</Price_2> 
+ <Price_3>0</Price_3> 
+ <Price_4>0</Price_4> 
+ <Price_5>0</Price_5> 
+ <Price_6>0</Price_6> 
+ <Price_7>0</Price_7> 
+ <Price_8>0</Price_8> 
+ <Price_9>0</Price_9> 
+ <Price_10>0</Price_10> 
+ </PriceLevel> 
+ <MinOrder>0</MinOrder> 
+ <ListingDisplayType>-1</ListingDisplayType> 
+ <ShowOutStock>-1</ShowOutStock> 
+ <PricingGroupOpt>0</PricingGroupOpt> 
+ <QuantityDiscountOpt>0</QuantityDiscountOpt> 
+ <LoginLevel>-1</LoginLevel> 
+ <RedirectTo /> 
+ <AccessGroup /> 
+ <SelfShip>0</SelfShip> 
+ <TaxCode /> 
+<eProduct> 
+ <eProductPassword /> 
+ <eProductRandom>0</eProductRandom> 
+ <eProductExpire>0</eProductExpire> 
+ <eProductPath /> 
+ <eProductSerial>0</eProductSerial> 
+ <eProductInstructions /> 
+ <eProductReuseSerial>0</eProductReuseSerial> 
+ </eProduct> 
+ <NonSearchable>0</NonSearchable> 
+ <InstockMessage /> 
+ <OutOfStockMessage /> 
+ <BackOrderMessage /> 
+<Rewards> 
+ <RewardPoints>0</RewardPoints> 
+ <RewardDisable>0</RewardDisable> 
+ <RewardRedeem>2610</RewardRedeem> 
+ </Rewards> 
+ <FileName></FileName> 
+<Images> 
+<Image> 
+ <Url>assets/images/prodtest.jpg</Url> 
+ <Caption /> 
+ </Image> 
+<Image> 
+ <Url /> 
+ <Caption /> 
+ </Image> 
+<Image> 
+ <Url /> 
+ <Caption /> 
+ </Image> 
+<Image> 
+ <Url /> 
+ <Caption /> 
+ </Image> 
+ <Thumbnail>assets/images/thumb_prodtest.jpg</Thumbnail> 
+ </Images> 
+<Options> 
+<Option> 
+ <Id>11</Id> 
+ <OptionType>Size</OptionType> 
+<Values> 
+<Value> 
+ <ID>28</ID> 
+ <Name>Small</Name> 
+ <OptionPrice>0.00</OptionPrice> 
+ <OptionPartNumber /> 
+ </Value> 
+<Value> 
+ <ID>29</ID> 
+ <Name>Large</Name> 
+ <OptionPrice>0.00</OptionPrice>
+  <OptionPartNumber /> 
+ </Value> 
+ </Values> 
+ </Option> 
+<Option> 
+ <Id>12</Id> 
+ <OptionType>Color</OptionType> 
+<Values> 
+<Value> 
+ <ID>30</ID> 
+ <Name>Blue</Name> 
+ <OptionPrice>0.00</OptionPrice> 
+ <OptionPartNumber /> 
+ </Value> 
+ </Values> 
+ </Option> 
+ </Options> 
+ </Product> 
+</GetProductDetailsResponse>

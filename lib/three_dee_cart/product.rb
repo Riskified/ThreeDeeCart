@@ -18,7 +18,7 @@ module ThreeDeeCart
     attr_accessor :depth
     attr_accessor :minimum_order
     attr_accessor :maximum_order
-    attr_accessor :date_create
+    attr_accessor :date_created
     attr_accessor :description
     attr_accessor :extended_description
     attr_accessor :ship_cost
@@ -29,7 +29,7 @@ module ThreeDeeCart
     attr_accessor :hide
     attr_accessor :free_shipping
     attr_accessor :non_tax
-    attr_accessor :not_for_sale
+    attr_accessor :not_forsale
     attr_accessor :gift_certificate
     attr_accessor :user_id
     attr_accessor :last_update
@@ -49,10 +49,11 @@ module ThreeDeeCart
     attr_accessor :back_order_message
     attr_accessor :thumbnail
     attr_accessor :file_name
-
+    attr_accessor :use_catoptions
+    attr_accessor :quantity_options
     attr_reader :categories
     attr_reader :extra_fields
-    attr_reader :price_levels
+    attr_reader :price_level
     attr_reader :e_product
     attr_reader :rewards
     attr_reader :images
@@ -62,6 +63,12 @@ module ThreeDeeCart
     # not sure what this is yet
     attr_accessor :related_products
     attr_accessor :meta_tags
+
+    def self.find(request_options)
+      resp = self.request(:get_product, request_options)
+      #raise resp.to_s
+      self.new(resp[:get_product_details_response][:product])
+    end
 
     def e_product=(value)
       if value.class.name != "Hash"
@@ -80,13 +87,18 @@ module ThreeDeeCart
     end
     
     def categories=(value)
-      if value.class.name != "Array"
+      if value.class.name != "Hash" || !value.keys.include?(:category)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value.class])
       end
 
+      value_category = value[:category]
+      if value_category.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value_category.class])
+      end
+
       @categories = []
-      if not value.nil?
-        value.each do |category|
+      if not value_category.nil?
+        value_category.each do |category|
           @categories << ThreeDeeCart::Category.new(category)
         end
       end
@@ -107,7 +119,7 @@ module ThreeDeeCart
       @extra_fields
     end
 
-    def price_levels=(value)
+    def price_level=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Price Levels", value.class])
       end
@@ -120,13 +132,19 @@ module ThreeDeeCart
     end
 
     def images=(value)
-      if value.class.name != "Array"
-        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Images", value.class])
+      if value.class.name != "Hash"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Images3", value.class])
+      end
+
+      value_images = value[:image]
+
+      if value_images.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Images2", value_images.class])
       end
 
       @images = []
-      if not value.nil?
-        value.each do |category|
+      if not value_images.nil?
+        value_images.each do |category|
           @images << ThreeDeeCart::Image.new(category)
         end
       end
@@ -135,13 +153,19 @@ module ThreeDeeCart
     end
 
     def options=(value)
-      if value.class.name != "Array"
+      if value.class.name != "Hash" || !value.keys.include?(:option)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value.class])
       end
 
+      value_options = value[:option]
+
+      if value_options.class.name != "Array"
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value_options.class])
+      end
+
       @options = []
-      if not value.nil?
-        value.each do |option|
+      if not value_options.nil?
+        value_options.each do |option|
           @options << ThreeDeeCart::Option.new(option)
         end
       end

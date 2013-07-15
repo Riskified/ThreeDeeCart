@@ -34,4 +34,65 @@ describe ThreeDeeCart::Customer do
       customer.shipping_address.first_name.should eq("John")
     end
   end
+
+  describe "#new" do
+    before(:all) do
+      @valid_hash = {
+      :customer_id => 123,
+      :user_id => 1234,
+      :password => "123123",
+      :last_login_date => "10/10/2012",
+      :web_site => "www.google.com",
+      :discount_group  => "none",
+      :cust_other1 => "bla",
+      :account_number => "A123",
+      :mail_list => "dunno",
+      :customer_type => "5",
+      :last_update => "10/10/2012",
+      :cust_enabled => true,
+      :comments => "fdfsdfds",
+      :billing_address => {},
+      :shipping_address => {},
+      :additional_fields => {:bla => 1, :bla2 => 2}
+    }
+    
+    @invalid_hash = @valid_hash.merge(:invalid_key => true)
+
+    @hash_with_invalid_shipping_address = @valid_hash.merge(:shipping_address => "string")
+    @hash_with_invalid_billing_address = @valid_hash.merge(:billing_address => "string")
+    @hash_with_invalid_additional_fields = @valid_hash.merge(:additional_fields => "string")
+    end
+
+    it "should accept a valid hash to constructor" do
+      lambda {
+        @customer = ThreeDeeCart::Customer.new(@valid_hash)
+      }.should_not raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+    end
+
+    it "should raise an exception for invalid constructor hash value" do
+      lambda {
+        @e_product = ThreeDeeCart::Customer.new(@invalid_hash)
+      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+    end
+
+    describe "invalid values for complex enteties" do
+      it "should raise an exception for invalid value for categories object" do 
+        lambda {
+          @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_shipping_address)
+        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+      end
+
+      it "should raise an exception for invalid value for Extra Fields object" do 
+        lambda {
+          @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_billing_address)
+        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+      end
+
+      it "should raise an exception for invalid value for price levels object" do 
+        lambda {
+          @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_additional_fields)
+        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+      end
+    end
+  end
 end
