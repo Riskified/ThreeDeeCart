@@ -1,4 +1,4 @@
-
+require 'active_model'
 module ThreeDeeCart
 
   autoload :Config,   'three_dee_cart/config'
@@ -14,6 +14,7 @@ module ThreeDeeCart
   autoload :Shipment, 'three_dee_cart/shipment'
   autoload :Item, 'three_dee_cart/item'
   
+  autoload :CustomerData, 'three_dee_cart/customer_data'
   autoload :Product, 'three_dee_cart/product'
   autoload :Category, 'three_dee_cart/category'
   autoload :EProduct, 'three_dee_cart/e_product'
