@@ -75,7 +75,12 @@ module ThreeDeeCart
       if !(self.valid?)
         raise(ThreeDeeCart::CustomerData::Exceptions::QueryConversionError, "Could not convert invalid CustomerData to query: #{self.errors.full_messages.inspect}")
       else
-        self.attributes.inspect
+        query = []
+        self.attributes.each_pair do |attr_name,val|
+          query << "#{attr_name}===#{val}"
+        end
+
+        query.join("|||")
       end
     end
   end

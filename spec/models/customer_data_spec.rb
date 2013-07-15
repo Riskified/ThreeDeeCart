@@ -106,5 +106,12 @@ describe ThreeDeeCart::CustomerData do
       @customer_data = ThreeDeeCart::CustomerData.new({contactid: "1", email: "elad@testing.com", action: :update})
       @customer_data.to_query.should eq("contactid===1|||email===elad@testing.com")
     end
+
+    it "shoudl raise an error for an invalid instance" do
+      @customer_data = ThreeDeeCart::CustomerData.new({email: "elad@testing.com", action: :update})
+      lambda {
+        @customer_data.to_query
+      }.should raise_error(ThreeDeeCart::CustomerData::Exceptions::QueryConversionError)
+    end
   end
 end
