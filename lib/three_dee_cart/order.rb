@@ -1,6 +1,7 @@
 module ThreeDeeCart
   class Order < ThreeDeeCart::Base
     attr_accessor :order_id
+    attr_accessor :invoice_number
     attr_accessor :customer_id
     attr_accessor :user_id
     attr_accessor :date

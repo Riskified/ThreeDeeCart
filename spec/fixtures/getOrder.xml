@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?> <GetOrdersResponse xmlns=""><Order><OrderID>35446</OrderID> <InvoiceNumber>AB-1426</InvoiceNumber> <CustomerID>15427</CustomerID> <Date>8/4/2008</Date>
+<Total>1590</Total>
+<Tax>90.00</Tax>
+<Tax2>0.00</Tax2>
+<Tax3>0.00</Tax3> <Shipping>0</Shipping>
+<BillingAddress> <FirstName>Sam</FirstName> <LastName>Jones</LastName> <Email>sam@email.com</Email> <Address>1234 Holmberg Rd</Address> <Address2 />
+<City>Parkland</City> <ZipCode>33067</ZipCode> <StateCode>FL</StateCode> <CountryCode>US</CountryCode> <Phone>1112223344</Phone> <Company />
+</BillingAddress> <Comments>
+<OrderComment /> <OrderInternalComment></OrderInternalComment> <OrderExternalComment />
+</Comments>
+<PaymentMethod>Online Credit Card</PaymentMethod> <Time>6:12:22 PM</Time>
+<Transaction>
+<CVV2>123</CVV2>
+<ResponseText></ResponseText>
+<AVS>AVS Result</AVS> <TransactionId>123456</TransactionId> <ApprovalCode>123456</ApprovalCode> <TransactionType>Authorize</TransactionType> <Amount>1,000.00</Amount>
+</Transaction>
+<Discount>0.00</Discount>
+<Promotions />
+<GiftCertificatePurchased />
+<GiftCertificateUsed /> <OrderStatus>New</OrderStatus> <Referer>http://www.google.com</Referer> <SalesPerson />
+<IP>111.222.333.444</IP>
+<DateStarted>8/4/2008 5:54:18 PM</DateStarted> <UserID />
+<LastUpdate>8/4/2008</LastUpdate> <Weight>0.00</Weight>
+<AffiliateInformation> <AffiliateID>0</AffiliateID> <AffiliateCommission>0</AffiliateCommission> <AffiliateApproved /> <AffiliateApprovedreason /> </AffiliateInformation>
+<ShippingInformation><Shipment> <ShipmentID>1</ShipmentID> <ShipmentDate /> <Shipping>0</Shipping>
+<Method>Free Shipping</Method> <FirstName>Sam</FirstName> <LastName>Jones</LastName> <Company />
+<Address>1234 Holmberg Rd</Address> <Address2 />
+<City>Parkland</City> <ZipCode>33067</ZipCode> <StateCode>FL</StateCode> <CountryCode>US</CountryCode> <Phone>1112223344</Phone> <Weight>0.00</Weight> <Status>New</Status> <InternalComment></InternalComment> <TrackingCode />
+</Shipment>
+<OrderItems> <Item>
+<ShipmentID>1</ShipmentID>
+<ProductID>100514</ProductID>
+<ProductName>This is the product name – Free Product</ProductName> <Quantity>1</Quantity>
+<UnitPrice>0.00</UnitPrice>
+<UnitCost>0.00</UnitCost>
+<OptionPrice>0.00</OptionPrice>
+<Weight>0.00</Weight>
+<WarehouseID>0</WarehouseID>
+<DateAdded />
+<PageAdded />
+</Item>
+<Item>
+<ShipmentID>1</ShipmentID>
+<ProductID>abc3</ProductID>
+<ProductName>Product Name</ProductName> <Quantity>1</Quantity>
+<UnitPrice>1,500.00</UnitPrice>
+<UnitCost>7.00</UnitCost>
+<OptionPrice>0.00</OptionPrice>
+<Weight>32.00</Weight>
+<WarehouseID>2</WarehouseID>
+<DateAdded>8/4/2008 5:56:43 PM</DateAdded> <PageAdded>Product-Name_p_1234-3214.html</PageAdded> </Item>
+</OrderItems>
+</ShippingInformation>
+</Order>
+</GetOrdersResponse>
