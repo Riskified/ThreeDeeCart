@@ -124,7 +124,27 @@ describe ThreeDeeCart::Product do
       count = ThreeDeeCart::Product.count({id: 1})
       count.should eq(6041)
     end
-  end  
+  end
+
+  describe "#inventory_count" do
+    before(:each) do
+      FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+    end
+
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should respond to #inventory_count" do
+      ThreeDeeCart::Product.respond_to?(:inventory_count).should eq(true)
+    end
+
+    it "should return as int when successful" do
+      savon.expects(:get_product_inventory).with({message: {id: 1}}).returns(File.read("spec/fixtures/getProductInventory.xml"))
+      count = ThreeDeeCart::Product.inventory_count({id: 1})
+      count.should eq(10)
+    end
+  end
 
   describe "#new" do
     it "should accept a valid hash to constructor" do
