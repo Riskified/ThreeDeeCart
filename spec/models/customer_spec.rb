@@ -35,6 +35,26 @@ describe ThreeDeeCart::Customer do
     end
   end
 
+  describe "#count" do
+    before(:each) do
+      FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+    end
+
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should respond to #count" do
+      ThreeDeeCart::Customer.respond_to?(:count).should eq(true)
+    end
+
+    it "should return as int when successful" do
+      savon.expects(:get_customer_count).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomerCount.xml"))
+      count = ThreeDeeCart::Customer.count({id: 1})
+      count.should eq(15473)
+    end
+  end
+
   describe "#new" do
     before(:all) do
       @valid_hash = {

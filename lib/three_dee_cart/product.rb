@@ -70,6 +70,11 @@ module ThreeDeeCart
       self.new(resp[:get_product_details_response][:product])
     end
 
+    def self.count(request_options)
+      resp = self.request(:get_product_count, request_options)
+      resp[:get_product_count_response][:product_quantity].to_i
+    end
+
     def e_product=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["EProduct", value.class])

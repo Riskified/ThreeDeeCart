@@ -23,6 +23,11 @@ module ThreeDeeCart
       self.new(resp[:customers_request_response][:customer])
     end
 
+    def self.count(request_options)
+      resp = self.request(:get_customer_count, request_options)
+      resp[:customer_count_response][:customer_count].to_i
+    end
+
     def billing_address=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Billing Address", value.class])
