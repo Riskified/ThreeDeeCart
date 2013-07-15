@@ -60,4 +60,12 @@ describe ThreeDeeCart::Order do
       order_status[:status_text].should eq("New")
     end
   end
+
+  describe "ThreeDeeCart#find" do
+    it "should return a valid order for a valid request" do
+      savon.expects(:get_order).with({message: {id: "test"}}).returns(File.read("spec/fixtures/getOrder.xml"))
+      order = ThreeDeeCart::Order.find({id: "test"})
+      order.total.should eq("1590")
+    end
+  end
 end

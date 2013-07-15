@@ -33,7 +33,6 @@ module ThreeDeeCart
 
     def self.find(request_options)
       resp = self.request(:get_order, request_options)
-      #raise resp.to_s
       self.new(resp[:get_orders_response][:order])
     end
 
@@ -79,9 +78,9 @@ module ThreeDeeCart
           item_obj = value[:order_items][:item]
           @order_items = []
 
-          if item_obj.class.name == "Hash"
+          if item_obj.is_a?(Hash)
             @order_items << ThreeDeeCart::Item.new(item_obj)
-          elsif item_obj.class.name == "Array"
+          elsif item_obj.is_a?(Array)
             if not item_obj.nil?
               item_obj.each do |item_hash|
                 @order_items << ThreeDeeCart::Item.new(item_hash)
