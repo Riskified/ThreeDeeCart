@@ -101,4 +101,10 @@ describe ThreeDeeCart::CustomerData do
     end
   end
 
+  describe "#to_query" do
+    it "should return a valid string per API's demand for valid request" do
+      @customer_data = ThreeDeeCart::CustomerData.new({contactid: "1", email: "elad@testing.com", action: :update})
+      @customer_data.to_query.should eq("contactid===1|||email===elad@testing.com")
+    end
+  end
 end
