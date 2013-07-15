@@ -42,9 +42,9 @@ module ThreeDeeCart
       resp[:orders_count_response][:quantity].to_i
     end
 
-    def self.order_status(request_options)
+    def self.status(request_options)
       resp = self.request(:get_order_status, request_options)
-      resp[:orders_status_response]
+      resp[:order_status_response]
     end
 
     def billing_address=(value)
