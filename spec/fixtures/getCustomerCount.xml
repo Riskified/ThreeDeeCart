@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<CustomerCountResponse xmlns=""> 
+ <CustomerCount>15473</CustomerCount> 
+</CustomerCountResponse>

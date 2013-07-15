@@ -37,6 +37,16 @@ module ThreeDeeCart
       self.new(resp[:get_orders_response][:order])
     end
 
+    def self.count(request_options)
+      resp = self.request(:get_order_count, request_options)
+      resp[:orders_count_response][:quantity].to_i
+    end
+
+    def self.order_status(request_options)
+      resp = self.request(:get_order_status, request_options)
+      resp[:orders_status_response]
+    end
+
     def billing_address=(value)
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
