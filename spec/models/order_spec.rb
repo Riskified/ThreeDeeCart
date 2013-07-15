@@ -14,6 +14,7 @@ describe ThreeDeeCart::Order do
       :advanced_typecasting => true,
       :parser               => :nokogiri
     }
+
     doc = File.read("spec/fixtures/getOrder.xml")
     @valid_hash = Nori.new(nori_options).parse(doc)[:get_orders_response][:order]
     @invalid_hash = {:invalid_attribute => true}
@@ -56,6 +57,19 @@ describe ThreeDeeCart::Order do
     it "should extract the right status from a valid response" do
       savon.expects(:get_order_status).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/getOrderStatus.xml"))
       order_status = ThreeDeeCart::Order.status({invoiceNum: "test"})
+      order_status[:status_id].should eq("1")
+      order_status[:status_text].should eq("New")
+    end
+  end
+ 
+  describe "ThreeDeeCart::Order#update_status" do
+    it "should respond to #update_status" do
+      ThreeDeeCart::Order.respond_to?(:update_status).should eq(true)
+    end
+
+    it "should call update status and extract the right status from valid response" do
+      savon.expects(:update_order_status).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
+      order_status = ThreeDeeCart::Order.update_status({invoiceNum: "test"})
       order_status[:status_id].should eq("1")
       order_status[:status_text].should eq("New")
     end

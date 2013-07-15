@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<UpdateOrderStatusResponse xmlns=""> 
+ <InvoiceNum>test</InvoiceNum> 
+ <StatusId>1</StatusId> 
+ <StatusText>New</StatusText> 
+</OrderStatusResponse> 
