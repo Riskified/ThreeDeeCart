@@ -45,7 +45,42 @@ describe ThreeDeeCart::CustomerData do
     end
   end
 
-  describe "#insert?"
+  describe "#insert?" do
+    it "should return true if action is :insert" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :insert})
+      @customer_data.insert?.should be_true
+    end
+
+    it "should return false if action is not :insert" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :update})
+      @customer_data.insert?.should be_false
+    end
+  end
+
+  describe "update?" do
+    it "should return true if action is :update" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :update})
+      @customer_data.update?.should be_true
+    end
+
+    it "should return false if action is not :update" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :insert})
+      @customer_data.update?.should be_false
+    end
+  end
+
+  describe "delete?" do
+    it "should return true if action is :delete" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :delete})
+      @customer_data.delete?.should be_true
+    end
+
+    it "should retun false if action is not :delete" do
+      @customer_data = ThreeDeeCart::CustomerData.new({:action => :update})
+      @customer_data.delete?.should be_false
+    end
+  end
+
   describe "#attributes" do
 
     it "should reflect current set attributes from construstor" do
