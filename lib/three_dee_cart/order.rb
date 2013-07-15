@@ -72,9 +72,23 @@ module ThreeDeeCart
       if not value.nil?
         @shipment = ThreeDeeCart::Shipment.new(value[:shipment])
         if not value[:order_items].nil?
+          if value[:order_items].class.name != "Hash" || !value[:order_items].keys.include?(:item)
+            raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Item", value[:order_items].class])
+          end
+
+          item_obj = value[:order_items][:item]
           @order_items = []
-          value[:order_items].each_pair do |key, item_hash|
-            @order_items << ThreeDeeCart::Item.new(item_hash)
+
+          if item_obj.class.name == "Hash"
+            @order_items << ThreeDeeCart::Item.new(item_obj)
+          elsif item_obj.class.name == "Array"
+            if not item_obj.nil?
+              item_obj.each do |item_hash|
+                @order_items << ThreeDeeCart::Item.new(item_hash)
+              end
+            end
+          else
+            raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Item", item_obj.class])
           end
         end
       end
