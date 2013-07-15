@@ -30,6 +30,12 @@ module ThreeDeeCart
     attr_reader :shipment
     attr_reader :order_items
 
+    def self.find(request_options)
+      resp = self.request(:get_order, request_options)
+      #raise resp.to_s
+      self.new(resp[:get_orders_response][:order])
+    end
+
     def billing_address=(value)
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
