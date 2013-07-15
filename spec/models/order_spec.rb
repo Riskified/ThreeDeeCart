@@ -16,6 +16,9 @@ describe ThreeDeeCart::Order do
     }
     doc = File.read("spec/fixtures/getOrder.xml")
     @valid_hash = Nori.new(nori_options).parse(doc)[:get_orders_response][:order]
+    @invalid_hash = {:invalid_attribute => true}
+    @valid_order_with_invalid_member = Nori.new(nori_options).parse(doc)[:get_orders_response][:order]
+    @valid_order_with_invalid_member[:shipping_information][:shipment] = {invalid_attr: true}
   }
   
   after(:all)  { savon.unmock! }
@@ -28,11 +31,15 @@ describe ThreeDeeCart::Order do
     end
 
     it "should not accept a hash with invalid order attribute" do
-      pending
+      lambda {
+        ThreeDeeCart::Order.new(@invalid_hash)
+      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
 
     it "should not accept a constructor hash that fails on a nested attribute" do
-      pending
+      lambda {
+        ThreeDeeCart::Order.new(@valid_order_with_invalid_member)
+      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
   end
 
