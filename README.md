@@ -1,6 +1,6 @@
 # Threedeecart
 
-TODO: Write a gem description
+SOAP integration with http://3dcart.com
 
 ## Installation
 
