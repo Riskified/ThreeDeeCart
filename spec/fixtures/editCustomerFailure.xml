@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<EditCustomerResponse xmlns=""> 
+ <result>NOT_OK</result > 
+ <contactid>123</contactid> 
+ <alt_contactid></alt_contactid> 
+</EditCustomerResponse>

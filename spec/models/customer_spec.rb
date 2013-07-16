@@ -37,10 +37,46 @@ describe ThreeDeeCart::Customer do
     it "should return array when multiple customers are returned" do
       fixture = File.read("spec/fixtures/getCustomer.xml")
 
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomerMultiple.xml"))
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest" }}).returns(File.read("spec/fixtures/getCustomerMultiple.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
       customer[0].customer_id.to_i.should eq(29)
       customer[1].customer_id.to_i.should eq(30)
+    end
+  end
+
+  describe "#edit" do
+    before(:each) do
+      FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+    end
+
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should respond to #edit" do
+      ThreeDeeCart::Customer.respond_to?(:edit).should eq(true)
+    end
+
+    it "should return true when valid customer data" do
+      customer_data = ThreeDeeCart::CustomerData.new({contactid: "1", action: :update})
+      savon.expects(:edit_customer).with({message: {customerData: customer_data.to_query, action: customer_data.action, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/editCustomer.xml"))
+
+      resp = ThreeDeeCart::Customer.edit(customer_data)
+      resp.should be_true
+    end
+
+    it "should return false when customer data is invalid" do
+      customer_data = ThreeDeeCart::CustomerData.new({action: :update})
+      resp = ThreeDeeCart::Customer.edit(customer_data)
+      resp.should be_false
+    end
+
+    it "should return false a non successful result is returned" do
+      customer_data = ThreeDeeCart::CustomerData.new({contactid: "1", action: :update})
+      savon.expects(:edit_customer).with({message: {customerData: customer_data.to_query, action: customer_data.action, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/editCustomerFailure.xml"))
+
+      resp = ThreeDeeCart::Customer.edit(customer_data)
+      resp.should be_false
     end
   end
 

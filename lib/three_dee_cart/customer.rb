@@ -57,6 +57,15 @@ module ThreeDeeCart
       resp[:customer_count_response][:customer_count].to_i
     end
 
+    def self.edit(customer_data)
+      if not customer_data.valid?
+        return false
+      end
+
+      resp = self.request(:edit_customer, :customerData => customer_data.to_query, :action => customer_data.action)
+      resp[:edit_customer_response][:result] == "OK"
+    end
+
     # Custom setter for billing address, creates a ThreeDeeCart::BillingAddress instance
     def billing_address=(value)
       if value.class.name != "Hash"

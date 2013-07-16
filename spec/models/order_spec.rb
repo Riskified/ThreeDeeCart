@@ -95,7 +95,7 @@ describe ThreeDeeCart::Order do
     end
 
     it "should return a valid order array for a valid request which returns multiple orders" do
-      savon.expects(:get_order).with({message: {id: "test"}}).returns(File.read("spec/fixtures/getOrderMultiple.xml"))
+      savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderMultiple.xml"))
       order = ThreeDeeCart::Order.find({id: "test"})
       order[0].total.should eq("1590")
       order[1].total.should eq("2590")
