@@ -51,6 +51,11 @@ module ThreeDeeCart
       resp[:update_order_status_response]
     end
 
+    def self.update_shipment(request_options)
+      resp = self.request(:update_order_shipment, request_options)
+      resp[:update_order_shipment_response][:result] == "OK"
+    end
+
     def billing_address=(value)
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end

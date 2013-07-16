@@ -75,6 +75,18 @@ describe ThreeDeeCart::Order do
     end
   end
 
+  describe "ThreeDeeCart::Order#update_status" do
+    it "should respond to #update_shipment" do
+      ThreeDeeCart::Order.respond_to?(:update_shipment).should eq(true)
+    end
+
+    it "should call update shipment and return true" do
+      savon.expects(:update_order_shipment).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/updateOrderShipment.xml"))
+      resp = ThreeDeeCart::Order.update_shipment({invoiceNum: "test"})
+      resp.should be_true
+    end
+  end
+
   describe "ThreeDeeCart#find" do
     it "should return a valid order for a valid request" do
       savon.expects(:get_order).with({message: {id: "test"}}).returns(File.read("spec/fixtures/getOrder.xml"))
