@@ -1,6 +1,6 @@
 # Threedeecart
 
-TODO: Write a gem description
+SOAP integration with [3D Cart](http://3dcart.com)
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Usage and Documentation are in the project's [Wiki](https://github.com/ShinobiDevs/ThreeDeeCart/wiki)
 
 ## Contributing
 
