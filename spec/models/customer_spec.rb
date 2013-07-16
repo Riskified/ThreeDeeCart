@@ -28,7 +28,7 @@ describe ThreeDeeCart::Customer do
     it "should return as successful" do
       fixture = File.read("spec/fixtures/getCustomer.xml")
 
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomer.xml"))
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomer.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
       customer.customer_id.to_i.should eq(29)
       customer.shipping_address.first_name.should eq("John")
@@ -49,7 +49,7 @@ describe ThreeDeeCart::Customer do
     end
 
     it "should return as int when successful" do
-      savon.expects(:get_customer_count).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomerCount.xml"))
+      savon.expects(:get_customer_count).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomerCount.xml"))
       count = ThreeDeeCart::Customer.count({id: 1})
       count.should eq(15473)
     end

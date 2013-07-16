@@ -101,7 +101,7 @@ describe ThreeDeeCart::Product do
     it "should return as successful" do
       fixture = File.read("spec/fixtures/getProduct.xml")
 
-      savon.expects(:get_product).with({message: {id: 1}}).returns(File.read("spec/fixtures/getProduct.xml"))
+      savon.expects(:get_product).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProduct.xml"))
       product = ThreeDeeCart::Product.find({id: 1})
     end
   end
@@ -120,7 +120,7 @@ describe ThreeDeeCart::Product do
     end
 
     it "should return as int when successful" do
-      savon.expects(:get_product_count).with({message: {id: 1}}).returns(File.read("spec/fixtures/getProductCount.xml"))
+      savon.expects(:get_product_count).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductCount.xml"))
       count = ThreeDeeCart::Product.count({id: 1})
       count.should eq(6041)
     end
@@ -140,7 +140,7 @@ describe ThreeDeeCart::Product do
     end
 
     it "should return as int when successful" do
-      savon.expects(:get_product_inventory).with({message: {id: 1}}).returns(File.read("spec/fixtures/getProductInventory.xml"))
+      savon.expects(:get_product_inventory).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductInventory.xml"))
       count = ThreeDeeCart::Product.inventory_count({id: 1})
       count.should eq(10)
     end
@@ -160,7 +160,7 @@ describe ThreeDeeCart::Product do
     end
 
     it "should return a valid new inventory quantity" do
-      savon.expects(:update_product_inventory).with({message: {quantity: 1}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
+      savon.expects(:update_product_inventory).with({message: {quantity: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
       count = ThreeDeeCart::Product.update_inventory({quantity: 1})
       count.should eq(50)
     end

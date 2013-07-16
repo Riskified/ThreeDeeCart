@@ -46,7 +46,7 @@ describe ThreeDeeCart::Order do
 
   describe "ThreeDeeCart::Order#count" do
     it "should extract the right quantity from a valid response" do
-      savon.expects(:get_order_count).with({message: {status: "test"}}).returns(File.read("spec/fixtures/getOrderCount.xml"))
+      savon.expects(:get_order_count).with({message: {status: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderCount.xml"))
 
       order_count = ThreeDeeCart::Order.count({status: "test"})
       order_count.should eq(474)
@@ -55,8 +55,8 @@ describe ThreeDeeCart::Order do
 
   describe "ThreeDeeCart::Order#status" do
     it "should extract the right status from a valid response" do
-      savon.expects(:get_order_status).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/getOrderStatus.xml"))
-      order_status = ThreeDeeCart::Order.status({invoiceNum: "test"})
+      savon.expects(:get_order_status).with({message: {invoiceNum: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderStatus.xml"))
+      order_status = ThreeDeeCart::Order.status({invoiceNum: "test", userKey: "testtesttest"})
       order_status[:status_id].should eq("1")
       order_status[:status_text].should eq("New")
     end
@@ -68,7 +68,7 @@ describe ThreeDeeCart::Order do
     end
 
     it "should call update status and extract the right status from valid response" do
-      savon.expects(:update_order_status).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
+      savon.expects(:update_order_status).with({message: {invoiceNum: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
       order_status = ThreeDeeCart::Order.update_status({invoiceNum: "test"})
       order_status[:status_id].should eq("1")
       order_status[:status_text].should eq("New")
@@ -81,7 +81,7 @@ describe ThreeDeeCart::Order do
     end
 
     it "should call update shipment and return true" do
-      savon.expects(:update_order_shipment).with({message: {invoiceNum: "test"}}).returns(File.read("spec/fixtures/updateOrderShipment.xml"))
+      savon.expects(:update_order_shipment).with({message: {invoiceNum: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateOrderShipment.xml"))
       resp = ThreeDeeCart::Order.update_shipment({invoiceNum: "test"})
       resp.should be_true
     end
@@ -89,7 +89,7 @@ describe ThreeDeeCart::Order do
 
   describe "ThreeDeeCart#find" do
     it "should return a valid order for a valid request" do
-      savon.expects(:get_order).with({message: {id: "test"}}).returns(File.read("spec/fixtures/getOrder.xml"))
+      savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrder.xml"))
       order = ThreeDeeCart::Order.find({id: "test"})
       order.total.should eq("1590")
     end
