@@ -31,7 +31,7 @@ describe ThreeDeeCart::Request do
 
   describe "#invoke" do
     it "should return a valid response hash for a valid request" do
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomer.xml"))
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomer.xml"))
       @req = nil
       lambda {
         @req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
@@ -44,7 +44,7 @@ describe ThreeDeeCart::Request do
     it "should raise an error when WSDL responds with an error xml" do
       
       response = { code: 500, headers: {}, body: File.read("spec/fixtures/api_error.xml") }
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(response)
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
       lambda {
@@ -56,7 +56,7 @@ describe ThreeDeeCart::Request do
     it "should raise an error when WSDL responds http error code" do
       
       response = { code: 500, headers: {}, body: File.read("spec/fixtures/getCustomer.xml") }
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(response)
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
       lambda {
@@ -68,7 +68,7 @@ describe ThreeDeeCart::Request do
     it "should raise an error when WSDL responds soap fault xml" do
       
       response = { code: 500, headers: {}, body: File.read("spec/fixtures/soap_fault.xml") }
-      savon.expects(:get_customer).with({message: {id: 1}}).returns(response)
+      savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
       lambda {

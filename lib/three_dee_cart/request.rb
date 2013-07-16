@@ -25,7 +25,7 @@ module ThreeDeeCart
     end
 
     def invoke
-      @response = client.call(self.operation, {message: self.message})
+      @response = client.call(self.operation, {message: self.message.merge(userKey: ThreeDeeCart.configuration.api_key)})
       @hash = @response.hash
       if successful?
         @hash
