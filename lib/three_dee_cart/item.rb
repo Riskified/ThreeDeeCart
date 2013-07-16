@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Item response object
+=end
 module ThreeDeeCart
   class Item < ThreeDeeCart::Root
     attr_accessor :shipment_id
@@ -12,18 +15,22 @@ module ThreeDeeCart
     attr_accessor :date_added
     attr_accessor :page_added
 
+    # Getter for product name
     def name
       @product_name
     end
 
+    # float getter for unit price
     def price
       unit_price.to_f
     end
 
+    # float getter for unit cost
     def cost
       unit_cost.to_f
     end
 
+    # float getter for option price
     def option_price
       @option_price.to_f
     end

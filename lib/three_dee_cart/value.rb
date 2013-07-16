@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Value response object
+=end
 module ThreeDeeCart
   class Value < ThreeDeeCart::Root
     attr_accessor :id

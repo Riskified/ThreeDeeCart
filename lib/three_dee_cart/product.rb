@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Product response object
+=end
 module ThreeDeeCart
   class Product < ThreeDeeCart::Base
     attr_accessor :product_id
@@ -64,27 +67,56 @@ module ThreeDeeCart
     attr_accessor :related_products
     attr_accessor :meta_tags
 
+    # Invokes the :get_product SOAP operation
+    # Request options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # batchSize*      - Number of records to pull. Range: 1 to 100.
+    # startNum*       - Position to start the search. Range: 1 to x
+    # productId       - Search for specific product id.
+    #
+    # Returns a ThreeDeeCart::Product for each returned product
     def self.find(request_options)
       resp = self.request(:get_product, request_options)
       #raise resp.to_s
       self.new(resp[:get_product_details_response][:product])
     end
 
+    # Invokes the :get_product_count SOAP operation
+    # Request options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    #
+    # Returns total product count for the store
     def self.count(request_options)
       resp = self.request(:get_product_count, request_options)
       resp[:get_product_count_response][:product_quantity].to_i
     end
 
+    # Invokes the :get_product_inventory SOAP operation
+    # Request options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # productId*      - Search for specific product id.
+    #
+    # Returns total inventory quantity for the product specified
     def self.inventory_count(request_options)
       resp = self.request(:get_product_inventory, request_options)
       resp[:get_inventory_response][:inventory].to_i
     end
 
+    # Invokes the :update_product_inventory SOAP operation
+    # Request options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # productId*      - Search for specific product id.
+    # quantity*       - Stock quantity for the specified product.
+    # replaceStock*   - boolean, Indicates if the stock should be replaced or
+    #                   incremented by the new quantity.
+    #
+    # Returns total inventory quantity for the product specified
     def self.update_inventory(request_options)
       resp = self.request(:update_product_inventory, request_options)
       resp[:update_inventory_response][:new_inventory].to_i
     end
 
+    # Custom setter for e_product, returns ThreeDeeCart::EProduct
     def e_product=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["EProduct", value.class])
@@ -93,6 +125,7 @@ module ThreeDeeCart
       @e_product = ThreeDeeCart::EProduct.new(value) if not value.nil?
     end
 
+    # Custom setter for rewards, returns ThreeDeeCart::Rewards
     def rewards=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Rewards", value.class])
@@ -101,6 +134,7 @@ module ThreeDeeCart
       @rewards = ThreeDeeCart::Rewards.new(value) if not value.nil?
     end
     
+    # Custom setter for categories, returns ThreeDeeCart::Category
     def categories=(value)
       if value.class.name != "Hash" || !value.keys.include?(:category)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value.class])
@@ -121,6 +155,7 @@ module ThreeDeeCart
       @categories
     end
 
+    # Custom setter for extra_fields
     def extra_fields=(value)
       
       if value.class.name != "Hash"
@@ -134,6 +169,7 @@ module ThreeDeeCart
       @extra_fields
     end
 
+    # Custom setter for price_level
     def price_level=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Price Levels", value.class])
@@ -146,6 +182,7 @@ module ThreeDeeCart
       @price_levels
     end
 
+    # Custom setter for images, returns ThreeDeeCart::Image
     def images=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Images3", value.class])
@@ -167,6 +204,7 @@ module ThreeDeeCart
       @images
     end
 
+    # Custom setter for options, returns ThreeDeeCart::Option    
     def options=(value)
       if value.class.name != "Hash" || !value.keys.include?(:option)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value.class])
@@ -188,6 +226,7 @@ module ThreeDeeCart
       @options
     end
 
+    # Custom setter for keywords, broken by comma.
     def keywords=(value)
       @keywords = value.split(',')
     end

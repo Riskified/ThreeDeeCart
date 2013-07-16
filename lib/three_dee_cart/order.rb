@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Order response object
+=end
 module ThreeDeeCart
   class Order < ThreeDeeCart::Base
     attr_accessor :order_id
@@ -31,39 +34,89 @@ module ThreeDeeCart
     attr_reader :shipment
     attr_reader :order_items
 
+    # Invokes :get_order SOAP operation
+    # Request options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # batchSize*      - Number of records to pull. Range: 1 to 100.
+    # startNum*       - Position to start the search. Range: 1 to x
+    # startFrom*      - boolean, If startFrom is true and invoiceNum is specified, the web service will return orders >= invoiceNum.
+    #                   If startFrom is false and invoiceNum is specified, the web service will return just the specified order.
+    #                   If invoiceNum is not specified, this parameter will be ignored.
+    # invoiceNum      - Search for specific invoice number.
+    # status          - Search orders by status.
+    # dateFrom        - Search orders that were placed after specified date. Must be in mm/dd/yyyy format.
+    # dateTo          - Search orders that were placed before specified date. Must be in mm/dd/yyyy format.
+    #
+    # Returns ThreeDeeCart::Order for each returned order
     def self.find(request_options)
       resp = self.request(:get_order, request_options)
       self.new(resp[:get_orders_response][:order])
     end
 
+    # Invokes :get_order_count SOAP operation
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # startFrom*      - boolean, If startFrom is true and invoiceNum is specified, the web service will return orders >= invoiceNum.
+    #                   If startFrom is false and invoiceNum is specified, the web service will return just the specified order.
+    #                   If invoiceNum is not specified, this parameter will be ignored.
+    # invoiceNum      - Search for specific invoice number.
+    # status          - Search orders by status.
+    # dateFrom        - Search orders that were placed after specified date. Must be in mm/dd/yyyy format.
+    # dateTo          - Search orders that were placed before specified date. Must be in mm/dd/yyyy format.
+    #
+    # Returns a quantity sum of all the matching orders
     def self.count(request_options)
       resp = self.request(:get_order_count, request_options)
       resp[:orders_count_response][:quantity].to_i
     end
 
+    # Invokes :get_order_status SOAP operation
+    # Request options:
+    # storeURL*        - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # invoiceNum*      - Search for specific invoice number.
+    # 
+    # Returns a hash with the status code and text. i.e: {:status_id => 1, :status_text => "New"}
     def self.status(request_options)
       resp = self.request(:get_order_status, request_options)
       resp[:order_status_response]
     end
 
+    # Invokes :update_order_status SOAP operation
+    # Request options:
+    # storeURL*        - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # invoiceNum*      - Search for specific invoice number.
+    # newStatus*       - string, New status for the specified order.
+    #
+    # returns a hash with the invoice number and new status. i.e: {invoice_num: "1476", new_status: "New"}
     def self.update_status(request_options)
       resp = self.request(:update_order_status, request_options)
       resp[:update_order_status_response]
     end
 
+    # Invokes :update_order_shipment SOAP operation
+    # storeURL*        - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # invoiceNum*      - Search for specific invoice number.
+    # shipmentID       - numeric, dentifies the shipment id for multiple shipment orders. 
+    #                    This ID can be found on the response of the getOrder method.
+    # tracking*        - Tracking code of the specified order/shipment.
+    # shipmentDate*    - Shipping date of the specified order/shipment.
+    #
+    # Returns a true / false response to indicate success
     def self.update_shipment(request_options)
       resp = self.request(:update_order_shipment, request_options)
       resp[:update_order_shipment_response][:result] == "OK"
     end
 
+    # Custom setter for billing address, returns ThreeDeeCart::BillingAddress
     def billing_address=(value)
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
 
+    # Custom setter for transaction, returns ThreeDeeCart::Transaction
     def transaction=(value)
       @transaction = ThreeDeeCart::Transaction.new(value) if not value.nil?
     end
 
+    # Custom setter for comments
     def comments=(value)
       @comments = []
       if not value.nil?
@@ -73,10 +126,12 @@ module ThreeDeeCart
       end
     end
 
+    # Custom setter for affiliate information, returns ThreeDeeCart::AffiliateInformation
     def affiliate_information=(value)
       @shipping_address = ThreeDeeCart::AffiliateInformation.new(value) if not value.nil?
     end
 
+    # Custom setter for shipping information, returns ThreeDeeCart::Shipment and ThreeDeeCart::Item for order items
     def shipping_information=(value)
       if not value.nil?
         @shipment = ThreeDeeCart::Shipment.new(value[:shipment])

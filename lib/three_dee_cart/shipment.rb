@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Shipment response object
+=end
 module ThreeDeeCart
   class Shipment < ThreeDeeCart::Root
     attr_accessor :shipment_id
@@ -21,7 +24,7 @@ module ThreeDeeCart
     attr_accessor :company
     attr_accessor :phone
 
-
+    # Return shipment full name
     def full_name
       [first_name, last_name].compact.join(" ")
     end

@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Option response object
+=end
 module ThreeDeeCart
   class Option < ThreeDeeCart::Root
     attr_accessor :id
@@ -5,6 +8,7 @@ module ThreeDeeCart
 
     attr_reader :values
 
+    # Custom getter for values, returns a ThreeDeeCart::Value set
     def values=(value)
       if value.class.name != "Hash" || !value.keys.include?(:value)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Values", value.class])

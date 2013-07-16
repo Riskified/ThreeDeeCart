@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Image response object
+=end
 module ThreeDeeCart
   
   class Image < ThreeDeeCart::Root

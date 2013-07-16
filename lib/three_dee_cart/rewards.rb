@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Rewards response object
+=end
 module ThreeDeeCart
   class Rewards < ThreeDeeCart::Root
     attr_accessor :reward_points

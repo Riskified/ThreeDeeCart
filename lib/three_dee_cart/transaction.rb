@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Transaction response object
+=end
 module ThreeDeeCart
   class Transaction < ThreeDeeCart::Root
     attr_accessor :transaction_id

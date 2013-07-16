@@ -1,3 +1,6 @@
+=begin
+Configuration object
+=end
 module ThreeDeeCart
   
   module Exceptions
@@ -23,6 +26,7 @@ module ThreeDeeCart
       @@api_key = api_key
     end
     
+    # Loads configuration from a yml file.
     def self.load_configuration_from_file(yaml_location = "")
       if File.exists?(yaml_location)
         config = YAML::load(File.open(yaml_location))
@@ -38,6 +42,7 @@ module ThreeDeeCart
       self
     end
 
+    # Loads configuration from a block
     def self.config(&block)
       config = self
       

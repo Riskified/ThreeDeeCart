@@ -1,6 +1,7 @@
 require 'active_model'
 module ThreeDeeCart
 
+  # Autoloads
   autoload :Config,   'three_dee_cart/config'
   autoload :Root,     'three_dee_cart/root'
   autoload :Base,     'three_dee_cart/base'
@@ -13,7 +14,6 @@ module ThreeDeeCart
   autoload :AffiliateInformation, 'three_dee_cart/affiliate_information'
   autoload :Shipment, 'three_dee_cart/shipment'
   autoload :Item, 'three_dee_cart/item'
-  
   autoload :CustomerData, 'three_dee_cart/customer_data'
   autoload :Product, 'three_dee_cart/product'
   autoload :Category, 'three_dee_cart/category'
@@ -25,20 +25,25 @@ module ThreeDeeCart
   autoload :Request, 'three_dee_cart/request'
   autoload :Version,  "three_dee_cart/version"
 
+  # Configuration
   @@configuration = nil
 
+  # Load configuration from file
   def self.load_configuration(config_file)
     @@configuration = ThreeDeeCart::Config.load_configuration_from_file(config_file)
   end
 
+  # Configuration via a block
   def self.config(&block)
     @@configuration = ThreeDeeCart::Config.config(&block)
   end
 
+  # Configuration getter
   def self.configuration
     @@configuration
   end
 
+  # Savon SOAP client accessor
   def self.client
     @@client ||= Savon.client(wsdl: self.configuration.wsdl, raise_errors: false)
   end

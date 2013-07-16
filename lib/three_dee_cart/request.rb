@@ -1,3 +1,6 @@
+=begin
+A wrapper for Savon::Client
+=end
 module ThreeDeeCart
   class Request
 
@@ -13,6 +16,7 @@ module ThreeDeeCart
     attr_reader :message
     attr_reader :hash
 
+    # Initialize a new request, check if the requested operation exists in the SOAP client schema
     def initialize(operation, message = {})
       @operation = operation.downcase.to_sym
       if !(client.operations.include?(@operation))
@@ -24,18 +28,21 @@ module ThreeDeeCart
       @hash = {}
     end
 
+    # Run the request
     def invoke
       @response = client.call(self.operation, {message: self.message.merge(userKey: ThreeDeeCart.configuration.api_key)})
       @hash = @response.hash
+
+      # Return the hash if successful
       if successful?
         @hash
-      elsif api_error?
+      elsif api_error? # Return a human readable error for API error
         raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@response.hash[:error][:description]} (#{@response.hash[:error][:id]})")
-      elsif soap_error?
+      elsif soap_error? # Return a human readable error for SOAP error
         fault_code = @hash[:envelope][:body][:fault][:faultcode]
         fault_string = @hash[:envelope][:body][:fault][:faultstring].strip
         raise(ThreeDeeCart::Request::Exceptions::SoapError, "Error while calling '#{self.operation} - SOAP error: #{fault_string} (#{fault_code})")
-      elsif http_error?
+      elsif http_error? # Return a human readable error for HTTP error response
         raise(ThreeDeeCart::Request::Exceptions::HttpError, "An HTTP error occured while trying to call operation '#{self.operation}' - code: #{@response.http.code}")
       end
     end
@@ -58,6 +65,7 @@ module ThreeDeeCart
       @response.hash.keys.include?(:error)
     end
 
+    # Proxy to the ThreeDeeCart client
     def client
       ThreeDeeCart.client
     end

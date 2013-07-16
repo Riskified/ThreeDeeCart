@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart EProduct response object
+=end
 module ThreeDeeCart
   class EProduct < ThreeDeeCart::Root
     attr_accessor :e_product_password

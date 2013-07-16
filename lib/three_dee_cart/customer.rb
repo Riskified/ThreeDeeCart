@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Customer response object
+=end
 module ThreeDeeCart
   class Customer < ThreeDeeCart::Base
 
@@ -18,16 +21,32 @@ module ThreeDeeCart
     attr_reader   :shipping_address
     attr_reader   :additional_fields
     
+    # Invoke a :get_customer SOAP operation
+    # Request options: 
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # batchSize*      - Number of records to pull. Range: 1 to 100.
+    # startNum*       - Position to start the search. Range: 1 to x
+    # customersFilter - Comma delimited string with zero or more search parameters. Allowed parameters: firstname,
+    #                   lastname, email, countrycode, statecode, city, phone.
+    #                   i.e.: firstname=John,email=john@email.com, countrycode=US,statecode=FL,city=Margate
+    #
+    # Returns ThreeDeeCart::Customer instances for each returned value
     def self.find(request_options)
       resp = self.request(:get_customer, request_options)
       self.new(resp[:customers_request_response][:customer])
     end
 
+    # Invoke :get_customer_count SOAP operation
+    # Request Options:
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # 
+    # Returns total customer count for the store
     def self.count(request_options)
       resp = self.request(:get_customer_count, request_options)
       resp[:customer_count_response][:customer_count].to_i
     end
 
+    # Custom setter for billing address, creates a ThreeDeeCart::BillingAddress instance
     def billing_address=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Billing Address", value.class])
@@ -36,6 +55,7 @@ module ThreeDeeCart
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
 
+    # Custom setter for shipping address, creates a ThreeDeeCart::ShippingAddress instance
     def shipping_address=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Shipping Address", value.class])
@@ -44,6 +64,7 @@ module ThreeDeeCart
       @shipping_address = ThreeDeeCart::ShippingAddress.new(value) if not value.nil?
     end
 
+    # Custom setter for additional fields
     def additional_fields=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Additional Fields", value.class])

@@ -1,3 +1,6 @@
+=begin
+Represents the 3D Cart Address response object
+=end
 module ThreeDeeCart
   class Address < ThreeDeeCart::Root
     attr_accessor :first_name
@@ -11,6 +14,7 @@ module ThreeDeeCart
     attr_accessor :company
     attr_accessor :phone
 
+    # Returns the full name of the address object
     def full_name
       [first_name, last_name].compact.join(" ")
     end
