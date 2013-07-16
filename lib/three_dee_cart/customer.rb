@@ -20,7 +20,18 @@ module ThreeDeeCart
     
     def self.find(request_options)
       resp = self.request(:get_customer, request_options)
-      self.new(resp[:customers_request_response][:customer])
+
+      resp_obj = resp[:customers_request_response][:customer]
+      if resp_obj.is_a?(Hash)
+        self.new(resp_obj)
+      else
+        customer_arr = []
+        resp_obj.each do |resp_hash|
+          customer_arr << self.new(resp_hash)
+        end
+
+        customer_arr
+      end
     end
 
     def self.count(request_options)
