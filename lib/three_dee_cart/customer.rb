@@ -57,12 +57,18 @@ module ThreeDeeCart
       resp[:customer_count_response][:customer_count].to_i
     end
 
-    def self.edit(customer_data)
+    # Invoke :edit_customer SOAP operation
+    # Request Options:
+    # customer_data   - customer data initialized with one of the valid actions [:insert, :update, :delete] and hash of attributes
+    # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
+    # 
+    # Returns total customer count for the store
+    def self.edit(customer_data, request_options = {})
       if not customer_data.valid?
         return false
       end
 
-      resp = self.request(:edit_customer, :customerData => customer_data.to_query, :action => customer_data.action)
+      resp = self.request(:edit_customer, request_options.merge(:customerData => customer_data.to_query, :action => customer_data.action))
       resp[:edit_customer_response][:result] == "OK"
     end
 
