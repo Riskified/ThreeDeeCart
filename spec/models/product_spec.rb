@@ -146,6 +146,26 @@ describe ThreeDeeCart::Product do
     end
   end
 
+  describe "#update_inventory" do
+    before(:each) do
+      FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+    end
+
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should respond to #update_inventory" do
+      ThreeDeeCart::Product.should respond_to(:update_inventory)
+    end
+
+    it "should return a valid new inventory quantity" do
+      savon.expects(:update_product_inventory).with({message: {quantity: 1}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
+      count = ThreeDeeCart::Product.update_inventory({quantity: 1})
+      count.should eq(50)
+    end
+  end
+
   describe "#new" do
     it "should accept a valid hash to constructor" do
       lambda {

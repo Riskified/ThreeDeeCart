@@ -80,6 +80,11 @@ module ThreeDeeCart
       resp[:get_inventory_response][:inventory].to_i
     end
 
+    def self.update_inventory(request_options)
+      resp = self.request(:update_product_inventory, request_options)
+      resp[:update_inventory_response][:new_inventory].to_i
+    end
+
     def e_product=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["EProduct", value.class])
