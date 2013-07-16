@@ -33,6 +33,15 @@ describe ThreeDeeCart::Customer do
       customer.customer_id.to_i.should eq(29)
       customer.shipping_address.first_name.should eq("John")
     end
+
+    it "should return array when multiple customers are returned" do
+      fixture = File.read("spec/fixtures/getCustomer.xml")
+
+      savon.expects(:get_customer).with({message: {id: 1}}).returns(File.read("spec/fixtures/getCustomerMultiple.xml"))
+      customer = ThreeDeeCart::Customer.find({id: 1})
+      customer[0].customer_id.to_i.should eq(29)
+      customer[1].customer_id.to_i.should eq(30)
+    end
   end
 
   describe "#count" do
