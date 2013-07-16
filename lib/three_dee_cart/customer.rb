@@ -58,8 +58,8 @@ module ThreeDeeCart
     end
 
     # Invoke :edit_customer SOAP operation
-    # Request Options:
     # customer_data   - customer data initialized with one of the valid actions [:insert, :update, :delete] and hash of attributes
+    # Request Options:
     # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
     # 
     # Returns total customer count for the store
