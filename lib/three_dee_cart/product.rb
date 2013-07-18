@@ -106,7 +106,7 @@ module ThreeDeeCart
     # Returns total product count for the store
     def self.count(request_options)
       resp = self.request(:get_product_count, request_options)
-      resp[:get_product_count_response][:product_quantity].to_i
+      resp[:get_product_count_response][:get_product_count_result][:get_product_count_response][:product_quantity].to_i
     end
 
     # Invokes the :get_product_inventory SOAP operation
@@ -117,7 +117,7 @@ module ThreeDeeCart
     # Returns total inventory quantity for the product specified
     def self.inventory_count(request_options)
       resp = self.request(:get_product_inventory, request_options)
-      resp[:get_inventory_response][:inventory].to_i
+      resp[:get_product_inventory_response][:get_product_inventory_result][:get_inventory_response][:inventory].to_i
     end
 
     # Invokes the :update_product_inventory SOAP operation

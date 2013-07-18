@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<GetInventoryResponse xmlns=""> 
- <ProductID>prod123</ProductID> 
- <Inventory>10</Inventory> 
-</GetInventoryResponse>
+<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><getProductInventoryResponse xmlns="http://3dcart.com/"><getProductInventoryResult><GetInventoryResponse xmlns=""><ProductID>1001</ProductID><Inventory>10</Inventory></GetInventoryResponse></getProductInventoryResult></getProductInventoryResponse></soap:Body></soap:Envelope>
