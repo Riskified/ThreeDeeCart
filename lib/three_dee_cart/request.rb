@@ -15,6 +15,7 @@ module ThreeDeeCart
     attr_reader :operation
     attr_reader :message
     attr_reader :hash
+    attr_reader :response
 
     # Initialize a new request, check if the requested operation exists in the SOAP client schema
     def initialize(operation, message = {})
@@ -30,8 +31,9 @@ module ThreeDeeCart
 
     # Run the request
     def invoke
+      puts self.message.inspect
       @response = client.call(self.operation, {message: self.message.merge(userKey: ThreeDeeCart.configuration.api_key)})
-      @hash = @response.hash
+      @hash = @response.hash[:envelope][:body]
 
       # Return the hash if successful
       if successful?

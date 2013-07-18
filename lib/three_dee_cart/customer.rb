@@ -20,7 +20,8 @@ module ThreeDeeCart
     attr_reader   :billing_address
     attr_reader   :shipping_address
     attr_reader   :additional_fields
-    
+    attr_accessor :additional_field4
+
     # Invoke a :get_customer SOAP operation
     # Request options: 
     # storeURL*       - 3dCart Store URL from which the information will be requested. i.e.: www.3dcart.com
@@ -31,10 +32,16 @@ module ThreeDeeCart
     #                   i.e.: firstname=John,email=john@email.com, countrycode=US,statecode=FL,city=Margate
     #
     # Returns ThreeDeeCart::Customer instances for each returned value
+
+    def initialize(attributes_hash = {})
+      super
+      @additional_fields << self.additional_field4
+      @additional_fields = @additional_fields.compact
+    end
+
     def self.find(request_options)
       resp = self.request(:get_customer, request_options)
-
-      resp_obj = resp[:customers_request_response][:customer]
+      resp_obj = resp[:get_customer_response][:get_customer_result][:customers_request_response][:customer]
       if resp_obj.is_a?(Hash)
         self.new(resp_obj)
       else
@@ -54,7 +61,7 @@ module ThreeDeeCart
     # Returns total customer count for the store
     def self.count(request_options)
       resp = self.request(:get_customer_count, request_options)
-      resp[:customer_count_response][:customer_count].to_i
+      resp[:get_customer_count_response][:get_customer_count_result][:customer_count_response][:customer_count].to_i
     end
 
     # Invoke :edit_customer SOAP operation
@@ -90,8 +97,8 @@ module ThreeDeeCart
       @shipping_address = ThreeDeeCart::ShippingAddress.new(value) if not value.nil?
     end
 
-    # Custom setter for additional fields
-    def additional_fields=(value)
+    # Custom setter for additional fields, error in spelling is in purpose - api returns it like this.
+    def aditional_fields=(value)
       if value.class.name != "Hash"
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Additional Fields", value.class])
       end
