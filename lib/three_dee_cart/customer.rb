@@ -71,12 +71,12 @@ module ThreeDeeCart
     # 
     # Returns total customer count for the store
     def self.edit(customer_data, request_options = {})
-      if not customer_data.valid?
+      if customer_data.nil? || !customer_data.valid?
         return false
       end
 
       resp = self.request(:edit_customer, request_options.merge(:customerData => customer_data.to_query, :action => customer_data.action))
-      resp[:edit_customer_response][:result] == "OK"
+      resp[:edit_customer_response][:edit_customer_result][:edit_customer_response][:result] == "OK"
     end
 
     # Custom setter for billing address, creates a ThreeDeeCart::BillingAddress instance

@@ -16,7 +16,9 @@
 
   #ThreeDeeCart::Customer.count({storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com", batchSize: 10, startNum: 0})
+  data = CustomerData.new(:action => :update, :contactid => "1", :email => "miki@blabla.com")
+  ThreeDeeCart::Customer.edit(data, {storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Product.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
   #ThreeDeeCart::Product.count({storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Product.inventory_count({storeUrl: "riskified.3dcartstores.com", :product_id => "1001"})
-  ThreeDeeCart::Product.update_inventory({storeUrl: "riskified.3dcartstores.com", :product_id => "1001", :quantity => 1, replaceStock: 1})
+  #ThreeDeeCart::Product.update_inventory({storeUrl: "riskified.3dcartstores.com", :product_id => "1001", :quantity => 1, replaceStock: 1})

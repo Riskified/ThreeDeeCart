@@ -1,6 +1,1 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<EditCustomerResponse xmlns=""> 
- <result>NOT_OK</result > 
- <contactid>123</contactid> 
- <alt_contactid></alt_contactid> 
-</EditCustomerResponse>
+<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><editCustomerResponse xmlns="http://3dcart.com/"><editCustomerResult><EditCustomerResponse xmlns=""><result>NOT_OK</result><contactid>1</contactid><alt_contactid></alt_contactid></EditCustomerResponse></editCustomerResult></editCustomerResponse></soap:Body></soap:Envelope>
