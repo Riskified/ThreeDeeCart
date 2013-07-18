@@ -1,4 +1,1 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<CustomerCountResponse xmlns=""> 
- <CustomerCount>15473</CustomerCount> 
-</CustomerCountResponse>
+<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><getCustomerCountResponse xmlns="http://3dcart.com/"><getCustomerCountResult><CustomerCountResponse xmlns=""><CustomerCount>15473</CustomerCount></CustomerCountResponse></getCustomerCountResult></getCustomerCountResponse></soap:Body></soap:Envelope>

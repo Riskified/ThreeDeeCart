@@ -102,7 +102,7 @@ module ThreeDeeCart
     # returns a hash with the invoice number and new status. i.e: {invoice_num: "1476", new_status: "New"}
     def self.update_status(request_options)
       resp = self.request(:update_order_status, request_options)
-      resp[:update_order_status_result][:update_order_status_response]
+      resp[:update_order_status_response][:update_order_status_result][:update_order_status_response]
     end
 
     # Invokes :update_order_shipment SOAP operation
