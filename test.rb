@@ -5,8 +5,12 @@ end
 
 #AB-1000
 #ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
+#ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com"})
+
 #ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
 #ThreeDeeCart::Order.count({storeUrl: "riskified.3dcartstores.com"})
 #ThreeDeeCart::Order.status({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000"})
-ThreeDeeCart::Order.update_status({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", newStatus: "Test"})
-#ThreeDeeCart::Order.status({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000"})
+#ThreeDeeCart::Order.update_status({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", newStatus: "Test"})
+#ThreeDeeCart::Order.update_shipment({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", tracking: "12312332", shipmentDate: "2013-07-18 15:08:30"})
+
+ThreeDeeCart::Product.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})

@@ -54,6 +54,14 @@ module ThreeDeeCart
     attr_accessor :file_name
     attr_accessor :use_catoptions
     attr_accessor :quantity_options
+    attr_accessor :catalog_id
+    attr_accessor :warehouse_location
+    attr_accessor :warehouse_bin
+    attr_accessor :warehouse_aisle
+    attr_accessor :warehouse_custom
+    attr_accessor :review_average
+    attr_accessor :review_count
+
     attr_reader :categories
     attr_reader :extra_fields
     attr_reader :price_level
@@ -78,7 +86,7 @@ module ThreeDeeCart
     def self.find(request_options)
       resp = self.request(:get_product, request_options)
       
-      resp_obj = resp[:get_product_details_response][:product]
+      resp_obj = resp[:get_product_response][:get_product_result][:get_product_details_response][:product]
       if resp_obj.is_a?(Hash)
         self.new(resp_obj)
       else
@@ -146,20 +154,23 @@ module ThreeDeeCart
     
     # Custom setter for categories, returns ThreeDeeCart::Category
     def categories=(value)
+
       if value.class.name != "Hash" || !value.keys.include?(:category)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value.class])
       end
 
       value_category = value[:category]
-      if value_category.class.name != "Array"
-        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value_category.class])
-      end
-
       @categories = []
-      if not value_category.nil?
-        value_category.each do |category|
-          @categories << ThreeDeeCart::Category.new(category)
+      if value_category.is_a?(Array)
+        if not value_category.nil?
+          value_category.each do |category|
+            @categories << ThreeDeeCart::Category.new(category)
+          end
         end
+      elsif value_category.is_a?(Hash)
+        @categories << ThreeDeeCart::Category.new(value_category)
+      else
+        raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Categories", value_category.class])
       end
 
       @categories
@@ -176,7 +187,7 @@ module ThreeDeeCart
         @extra_fields = value.values
       end
 
-      @extra_fields
+      @extra_fields = @extra_fields.compact
     end
 
     # Custom setter for price_level
@@ -216,6 +227,7 @@ module ThreeDeeCart
 
     # Custom setter for options, returns ThreeDeeCart::Option    
     def options=(value)
+      return if value.nil?
       if value.class.name != "Hash" || !value.keys.include?(:option)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value.class])
       end
@@ -238,7 +250,7 @@ module ThreeDeeCart
 
     # Custom setter for keywords, broken by comma.
     def keywords=(value)
-      @keywords = value.split(',')
+      @keywords = value.to_s.split(',')
     end
   end
 end

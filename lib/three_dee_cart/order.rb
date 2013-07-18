@@ -116,7 +116,7 @@ module ThreeDeeCart
     # Returns a true / false response to indicate success
     def self.update_shipment(request_options)
       resp = self.request(:update_order_shipment, request_options)
-      resp[:update_order_shipment_response][:result] == "OK"
+      resp[:update_order_shipment_response][:update_order_shipment_result][:update_order_shipment_response][:result] == "OK"
     end
 
     # Custom setter for billing address, returns ThreeDeeCart::BillingAddress
