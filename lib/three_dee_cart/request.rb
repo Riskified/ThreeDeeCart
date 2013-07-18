@@ -39,8 +39,8 @@ module ThreeDeeCart
       if api_error? # Return a human readable error for API error
         raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@error[:description]} (#{@error[:id]})")
       elsif soap_error? # Return a human readable error for SOAP error
-        fault_code = @hash[:envelope][:body][:fault][:faultcode]
-        fault_string = @hash[:envelope][:body][:fault][:faultstring].strip
+        fault_code = @hash[:fault][:faultcode]
+        fault_string = @hash[:fault][:faultstring].strip
         raise(ThreeDeeCart::Request::Exceptions::SoapError, "Error while calling '#{self.operation} - SOAP error: #{fault_string} (#{fault_code})")
       elsif http_error? # Return a human readable error for HTTP error response
         raise(ThreeDeeCart::Request::Exceptions::HttpError, "An HTTP error occured while trying to call operation '#{self.operation}' - code: #{@response.http.code}")

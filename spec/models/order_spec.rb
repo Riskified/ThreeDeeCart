@@ -74,7 +74,7 @@ describe ThreeDeeCart::Order do
     it "should call update status and extract the right status from valid response" do
       savon.expects(:update_order_status).with({message: {invoiceNum: "test", newStatus: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
       order_status = ThreeDeeCart::Order.update_status({invoiceNum: "test", newStatus: "test"})
-      order_status[:status_text].should eq("New")
+      order_status[:new_status].should eq("test")
     end
   end
 
@@ -94,14 +94,14 @@ describe ThreeDeeCart::Order do
     it "should return a valid order for a valid request" do
       savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrder.xml"))
       order = ThreeDeeCart::Order.find({id: "test"})
-      order.total.should eq("1590")
+      order.total.should eq("1")
     end
 
     it "should return a valid order array for a valid request which returns multiple orders" do
       savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderMultiple.xml"))
       order = ThreeDeeCart::Order.find({id: "test"})
-      order[0].total.should eq("1590")
-      order[1].total.should eq("2590")
+      order[0].total.should eq("1")
+      order[1].total.should eq("1")
     end
   end
 end

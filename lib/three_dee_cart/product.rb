@@ -131,7 +131,7 @@ module ThreeDeeCart
     # Returns total inventory quantity for the product specified
     def self.update_inventory(request_options)
       resp = self.request(:update_product_inventory, request_options)
-      resp[:update_inventory_response][:new_inventory].to_i
+      resp[:update_product_inventory_response][:update_product_inventory_result][:update_inventory_response][:new_inventory].to_i
     end
 
     # Custom setter for e_product, returns ThreeDeeCart::EProduct

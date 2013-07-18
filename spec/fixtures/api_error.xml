@@ -1,3 +1,1 @@
-<?xml version="1.0" encoding="utf-8" ?> <Error xmlns="">
-<Id>17</Id>
-<Description>Login Error</Description> </Error>
+<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><updateProductInventoryResponse xmlns="http://3dcart.com/"><updateProductInventoryResult><Error xmlns=""><Id>17</Id><Description>Login Error</Description></Error></updateProductInventoryResult></updateProductInventoryResponse></soap:Body></soap:Envelope>

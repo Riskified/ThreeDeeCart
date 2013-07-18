@@ -1,3 +1,1 @@
-<?xml version="1.0" encoding="utf-8" ?> <UpdateInventoryResponse xmlns="">
-<ProductID>prod123</ProductID>
-<NewInventory>50</NewInventory> </UpdateInventoryResponse>
+<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><updateProductInventoryResponse xmlns="http://3dcart.com/"><updateProductInventoryResult><UpdateInventoryResponse xmlns=""><ProductID>1001</ProductID><NewInventory>1</NewInventory></UpdateInventoryResponse></updateProductInventoryResult></updateProductInventoryResponse></soap:Body></soap:Envelope>

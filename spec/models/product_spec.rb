@@ -103,7 +103,7 @@ describe ThreeDeeCart::Product do
 
       savon.expects(:get_product).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProduct.xml"))
       product = ThreeDeeCart::Product.find({id: 1})
-      product.product_id.should eq("prod123")
+      product.product_id.should eq("1001")
     end
 
     it "should return a valid product array for a valid request which returns multiple products" do
@@ -111,8 +111,8 @@ describe ThreeDeeCart::Product do
 
       savon.expects(:get_product).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductMultiple.xml"))
       product = ThreeDeeCart::Product.find({id: 1})
-      product[0].product_id.should eq("prod123")
-      product[1].product_id.should eq("prod321")
+      product[0].product_id.should eq("1001")
+      product[1].product_id.should eq("1001")
     end
   end
 
@@ -170,9 +170,9 @@ describe ThreeDeeCart::Product do
     end
 
     it "should return a valid new inventory quantity" do
-      savon.expects(:update_product_inventory).with({message: {quantity: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
-      count = ThreeDeeCart::Product.update_inventory({quantity: 1})
-      count.should eq(50)
+      savon.expects(:update_product_inventory).with({message: {quantity: 1, userKey: "testtesttest", replaceStock: true}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
+      count = ThreeDeeCart::Product.update_inventory({quantity: 1, replaceStock: true})
+      count.should eq(1)
     end
   end
 

@@ -38,7 +38,7 @@ describe ThreeDeeCart::Request do
         @req.invoke
       }.should_not raise_error
 
-      @req.hash.keys.should include(:customers_request_response)
+      @req.hash.keys.should include(:get_customer_response)
     end
 
     it "should raise an error when WSDL responds with an error xml" do
