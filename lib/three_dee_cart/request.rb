@@ -16,6 +16,7 @@ module ThreeDeeCart
     attr_reader :message
     attr_reader :hash
     attr_reader :response
+    attr_reader :error
 
     # Initialize a new request, check if the requested operation exists in the SOAP client schema
     def initialize(operation, message = {})
@@ -31,21 +32,20 @@ module ThreeDeeCart
 
     # Run the request
     def invoke
-      puts self.message.inspect
+      
       @response = client.call(self.operation, {message: self.message.merge(userKey: ThreeDeeCart.configuration.api_key)})
       @hash = @response.hash[:envelope][:body]
-
       # Return the hash if successful
-      if successful?
-        @hash
-      elsif api_error? # Return a human readable error for API error
-        raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@response.hash[:error][:description]} (#{@response.hash[:error][:id]})")
+      if api_error? # Return a human readable error for API error
+        raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@error[:description]} (#{@error[:id]})")
       elsif soap_error? # Return a human readable error for SOAP error
         fault_code = @hash[:envelope][:body][:fault][:faultcode]
         fault_string = @hash[:envelope][:body][:fault][:faultstring].strip
         raise(ThreeDeeCart::Request::Exceptions::SoapError, "Error while calling '#{self.operation} - SOAP error: #{fault_string} (#{fault_code})")
       elsif http_error? # Return a human readable error for HTTP error response
         raise(ThreeDeeCart::Request::Exceptions::HttpError, "An HTTP error occured while trying to call operation '#{self.operation}' - code: #{@response.http.code}")
+      elsif successful?
+        @hash
       end
     end
 
@@ -64,7 +64,8 @@ module ThreeDeeCart
     end
 
     def api_error?
-      @response.hash.keys.include?(:error)
+      @error = @response.hash.deep_find(:error)
+      @error.is_a?(Hash)
     end
 
     # Proxy to the ThreeDeeCart client

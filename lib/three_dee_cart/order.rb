@@ -79,7 +79,7 @@ module ThreeDeeCart
     # Returns a quantity sum of all the matching orders
     def self.count(request_options)
       resp = self.request(:get_order_count, request_options)
-      resp[:orders_count_response][:quantity].to_i
+      resp[:get_order_count_response][:get_order_count_result][:orders_count_response][:quantity].to_i
     end
 
     # Invokes :get_order_status SOAP operation
@@ -90,7 +90,7 @@ module ThreeDeeCart
     # Returns a hash with the status code and text. i.e: {:status_id => 1, :status_text => "New"}
     def self.status(request_options)
       resp = self.request(:get_order_status, request_options)
-      resp[:order_status_response]
+      resp[:get_order_status_response][:get_order_status_result][:order_status_response]
     end
 
     # Invokes :update_order_status SOAP operation
@@ -102,7 +102,7 @@ module ThreeDeeCart
     # returns a hash with the invoice number and new status. i.e: {invoice_num: "1476", new_status: "New"}
     def self.update_status(request_options)
       resp = self.request(:update_order_status, request_options)
-      resp[:update_order_status_response]
+      resp[:update_order_status_result][:update_order_status_response]
     end
 
     # Invokes :update_order_shipment SOAP operation

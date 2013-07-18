@@ -1,5 +1,7 @@
 require 'active_model'
 require 'savon'
+require 'three_dee_cart/core_ext'
+
 module ThreeDeeCart
 
   # Autoloads
