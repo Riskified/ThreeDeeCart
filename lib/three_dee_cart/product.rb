@@ -227,7 +227,6 @@ module ThreeDeeCart
 
     # Custom setter for options, returns ThreeDeeCart::Option    
     def options=(value)
-      return if value.nil?
       if value.class.name != "Hash" || !value.keys.include?(:option)
         raise(ThreeDeeCart::Exceptions::InvalidAttributeType, ThreeDeeCart::Exceptions::InvalidAttributeType::DEFAULT_MESSAGE % ["Options", value.class])
       end

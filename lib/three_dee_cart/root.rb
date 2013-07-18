@@ -16,6 +16,7 @@ module ThreeDeeCart
 
       # Assign incoming hash value to a matching local instance variable, if exists
       attributes_hash.each_pair do |attr_name, attr_value|
+        next if attr_value.nil?
         if self.respond_to?("#{attr_name}=")
           self.send("#{attr_name}=", attr_value) 
         else
