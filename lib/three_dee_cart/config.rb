@@ -36,7 +36,7 @@ module ThreeDeeCart
         raise ThreeDeeCart::Exceptions::MissingConfigurationFile, "cannot find #{yaml_location} 3dcart configuration file"
       end
 
-      if self.api_key.blank?
+      if self.api_key.nil?
         raise(ThreeDeeCart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
       end
       self
@@ -48,7 +48,7 @@ module ThreeDeeCart
       
       yield config
 
-      if config.api_key.blank?
+      if config.api_key.nil?
         raise(ThreeDeeCart::Exceptions::MissingApiKey, "3DCart API Key cannot be blank")
       end
       config

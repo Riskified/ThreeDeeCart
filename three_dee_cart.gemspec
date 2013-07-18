@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'three_dee_cart/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ThreeDeeCart"
+  spec.name          = "three_dee_cart"
   spec.version       = ThreeDeeCart::VERSION
   spec.authors       = ["Elad Meidar"]
   spec.email         = ["elad@shinobidevs.com"]
