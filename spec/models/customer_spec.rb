@@ -30,17 +30,15 @@ describe ThreeDeeCart::Customer do
 
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomer.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
-      customer.customer_id.to_i.should eq(29)
+      customer.customer_id.to_i.should eq(1)
       customer.shipping_address.first_name.should eq("John")
     end
 
     it "should return array when multiple customers are returned" do
-      fixture = File.read("spec/fixtures/getCustomer.xml")
-
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest" }}).returns(File.read("spec/fixtures/getCustomerMultiple.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
-      customer[0].customer_id.to_i.should eq(29)
-      customer[1].customer_id.to_i.should eq(30)
+      customer[0].customer_id.to_i.should eq(1)
+      customer[1].customer_id.to_i.should eq(1)
     end
   end
 
@@ -118,14 +116,14 @@ describe ThreeDeeCart::Customer do
       :comments => "fdfsdfds",
       :billing_address => {},
       :shipping_address => {},
-      :additional_fields => {:bla => 1, :bla2 => 2}
+      :aditional_fields => {:bla => 1, :bla2 => 2}
     }
     
     @invalid_hash = @valid_hash.merge(:invalid_key => true)
 
     @hash_with_invalid_shipping_address = @valid_hash.merge(:shipping_address => "string")
     @hash_with_invalid_billing_address = @valid_hash.merge(:billing_address => "string")
-    @hash_with_invalid_additional_fields = @valid_hash.merge(:additional_fields => "string")
+    @hash_with_invalid_additional_fields = @valid_hash.merge(:aditional_fields => "string")
     end
 
     it "should accept a valid hash to constructor" do

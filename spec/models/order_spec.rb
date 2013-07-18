@@ -16,10 +16,13 @@ describe ThreeDeeCart::Order do
     }
 
     doc = File.read("spec/fixtures/getOrder.xml")
-    @valid_hash = Nori.new(nori_options).parse(doc)[:get_orders_response][:order]
+    @valid_hash = Nori.new(nori_options).parse(doc)[:envelope][:body][:get_order_response][:get_order_result][:get_orders_response][:order]
     @invalid_hash = {:invalid_attribute => true}
-    @valid_order_with_invalid_member = Nori.new(nori_options).parse(doc)[:get_orders_response][:order]
+    @valid_order_with_invalid_member = Nori.new(nori_options).parse(doc)[:envelope][:body][:get_order_response][:get_order_result][:get_orders_response][:order]
     @valid_order_with_invalid_member[:shipping_information][:shipment] = {invalid_attr: true}
+    
+    FakeWeb.register_uri(:get, "http://example.com/?wsdl", :body => File.read("spec/fixtures/wsdl_mock.xml"))
+
   }
   
   after(:all)  { savon.unmock! }
@@ -57,7 +60,8 @@ describe ThreeDeeCart::Order do
     it "should extract the right status from a valid response" do
       savon.expects(:get_order_status).with({message: {invoiceNum: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderStatus.xml"))
       order_status = ThreeDeeCart::Order.status({invoiceNum: "test", userKey: "testtesttest"})
-      order_status[:status_id].should eq("1")
+
+      order_status[:id].should eq("1")
       order_status[:status_text].should eq("New")
     end
   end
@@ -68,9 +72,8 @@ describe ThreeDeeCart::Order do
     end
 
     it "should call update status and extract the right status from valid response" do
-      savon.expects(:update_order_status).with({message: {invoiceNum: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
-      order_status = ThreeDeeCart::Order.update_status({invoiceNum: "test"})
-      order_status[:status_id].should eq("1")
+      savon.expects(:update_order_status).with({message: {invoiceNum: "test", newStatus: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/updateOrderStatus.xml"))
+      order_status = ThreeDeeCart::Order.update_status({invoiceNum: "test", newStatus: "test"})
       order_status[:status_text].should eq("New")
     end
   end
