@@ -12,6 +12,7 @@ module ThreeDeeCart
     attr_accessor :last_update
     attr_accessor :total
     attr_accessor :tax
+    attr_accessor :card_type
     attr_accessor :tax2
     attr_accessor :tax3
     attr_accessor :payment_method
@@ -26,6 +27,7 @@ module ThreeDeeCart
     attr_accessor :ip
     attr_accessor :referer
     attr_accessor :weight
+    attr_accessor :checkout_questions
 
     attr_reader :transaction
     attr_reader :billing_address
@@ -51,7 +53,7 @@ module ThreeDeeCart
     def self.find(request_options)
       resp = self.request(:get_order, request_options)
 
-      resp_obj = resp[:get_orders_response][:order]
+      resp_obj = resp[:get_order_response][:get_order_result][:get_orders_response][:order]
       if resp_obj.is_a?(Hash)
         self.new(resp_obj)
       else

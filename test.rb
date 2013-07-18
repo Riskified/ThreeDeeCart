@@ -4,4 +4,5 @@ ThreeDeeCart.config do |config|
 end
 
 
-ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
+#ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
+ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})

@@ -8,10 +8,16 @@ module ThreeDeeCart
     attr_accessor :product_id
     attr_accessor :product_name
     attr_accessor :quantity
+    attr_accessor :item_price
     attr_accessor :unit_price
     attr_accessor :unit_cost
+    attr_accessor :item_cost
+    attr_accessor :total
     attr_accessor :option_price
     attr_accessor :weight
+    attr_accessor :dimension
+    attr_accessor :prod_type
+    attr_accessor :taxable
     attr_accessor :date_added
     attr_accessor :page_added
 
