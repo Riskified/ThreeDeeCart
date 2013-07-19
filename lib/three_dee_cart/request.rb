@@ -37,7 +37,11 @@ module ThreeDeeCart
       @hash = @response.hash[:envelope][:body]
       # Return the hash if successful
       if api_error? # Return a human readable error for API error
-        raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@error[:description]} (#{@error[:id]})")
+        if @error.is_a?(String)
+          raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation} - #{@error}'")
+        else
+          raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@error[:description]} (#{@error[:id]})")
+        end
       elsif soap_error? # Return a human readable error for SOAP error
         fault_code = @hash[:fault][:faultcode]
         fault_string = @hash[:fault][:faultstring].strip
@@ -65,7 +69,7 @@ module ThreeDeeCart
 
     def api_error?
       @error = @response.hash.deep_find(:error)
-      @error.is_a?(Hash)
+      !(@error.nil?)
     end
 
     # Proxy to the ThreeDeeCart client
