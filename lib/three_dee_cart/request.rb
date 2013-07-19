@@ -39,7 +39,7 @@ module ThreeDeeCart
       if api_error? # Return a human readable error for API error
         if @error.is_a?(String)
           raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation} - #{@error}'")
-        else
+        elsif @error.is_a?(Hash)
           raise(ThreeDeeCart::Request::Exceptions::ApiError, "Error while calling '#{self.operation}' - #{@error[:description]} (#{@error[:id]})")
         end
       elsif soap_error? # Return a human readable error for SOAP error
@@ -69,7 +69,7 @@ module ThreeDeeCart
 
     def api_error?
       @error = @response.hash.deep_find(:error)
-      !(@error.nil?)
+      @error.nil? == false
     end
 
     # Proxy to the ThreeDeeCart client

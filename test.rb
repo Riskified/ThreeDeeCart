@@ -5,7 +5,7 @@
 
   #AB-1000
 
-ThreeDeeCart::Order.find({storeUrl: "http://riskified.3dcartstores.com", startNum: 0, batchSize: 10})
+ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", startNum: 0, batchSize: 10})
   #ThreeDeeCart::Order.update_shipment({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", tracking: "12312332", shipmentDate: "2013-07-18 15:08:30"})
 
   # test xml updated:
@@ -17,8 +17,8 @@ ThreeDeeCart::Order.find({storeUrl: "http://riskified.3dcartstores.com", startNu
 
   #ThreeDeeCart::Customer.count({storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Customer.find({storeUrl: "riskified.3dcartstores.com", batchSize: 10, startNum: 0})
-  data = CustomerData.new(:action => :update, :contactid => "1", :email => "miki@blabla.com")
-  ThreeDeeCart::Customer.edit(data, {storeUrl: "riskified.3dcartstores.com"})
+ # data = CustomerData.new(:action => :update, :contactid => "1", :email => "miki@blabla.com")
+  #ThreeDeeCart::Customer.edit(data, {storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Product.find({storeUrl: "riskified.3dcartstores.com", batchSize: 1, startNum: 1})
   #ThreeDeeCart::Product.count({storeUrl: "riskified.3dcartstores.com"})
   #ThreeDeeCart::Product.inventory_count({storeUrl: "riskified.3dcartstores.com", :product_id => "1001"})
