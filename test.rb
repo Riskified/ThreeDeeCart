@@ -1,11 +1,14 @@
   ThreeDeeCart.config do |config|
     config.wsdl = "http://api.3dcart.com/cart.asmx?WSDL"
-    config.api_key = "27941608346427720279416083464277"
+   # config.api_key = "27941608346427720279416083464277"
   end
 
   #AB-1000
-
-ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", startNum: 0, batchSize: 10})
+ThreeDeeCart::Order.find({storeUrl: 'riskified.3dcartstores.com', 
+                          userKey:'27941608346427720279416083464277',
+                          batchSize: 1,
+                          startNum: 1})
+#ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", startNum: 0, batchSize: 10})
   #ThreeDeeCart::Order.update_shipment({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", tracking: "12312332", shipmentDate: "2013-07-18 15:08:30"})
 
   # test xml updated:

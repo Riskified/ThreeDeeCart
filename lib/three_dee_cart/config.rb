@@ -10,6 +10,9 @@ module ThreeDeeCart
 
 	class Config
 
+    @@wsdl = nil
+    @@api_key = nil
+    
     def self.wsdl
       @@wsdl
     end
@@ -19,7 +22,7 @@ module ThreeDeeCart
     end
     
     def self.api_key
-      @@api_key
+      @@api_key || nil
     end
 
     def self.api_key=(api_key)
