@@ -21,11 +21,11 @@ describe ThreeDeeCart::Config do
       }.should raise_error(ThreeDeeCart::Exceptions::MissingConfigurationFile)
     end
 
-    it "should fail if api_key is not provided" do
-      config_file = File.join(Dir.pwd, "spec", "fixtures", "test_config_no_api_key.yml")
+    it "should fail if wsdl is not provided" do
+      config_file = File.join(Dir.pwd, "spec", "fixtures", "test_config_no_wsdl.yml")
       lambda {
         config = ThreeDeeCart::Config.load_configuration_from_file(config_file)
-      }.should raise_error(ThreeDeeCart::Exceptions::MissingApiKey)
+      }.should raise_error(ThreeDeeCart::Exceptions::MissingWSDL)
     end
 
   end
@@ -40,13 +40,13 @@ describe ThreeDeeCart::Config do
       ThreeDeeCart::Config.wsdl.should eq("http://example.com/?wsdl")
     end
 
-    it "should fail if api_key is not provided" do
-      ThreeDeeCart::Config.api_key = nil
+    it "should fail if wsdl is not provided" do
+      ThreeDeeCart::Config.wsdl = nil
       lambda {
         ThreeDeeCart::Config.config do |config|
-          config.wsdl = "http://example.com/?wsdl"
+          config.api_key = "testtest"
         end
-      }.should raise_error(ThreeDeeCart::Exceptions::MissingApiKey)
+      }.should raise_error(ThreeDeeCart::Exceptions::MissingWSDL)
     end
   end
 end
