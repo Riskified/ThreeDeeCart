@@ -33,7 +33,7 @@ module ThreeDeeCart
     # Run the request
     def invoke
       
-      @response = client.call(self.operation, {message: self.message.merge(userKey: ThreeDeeCart.configuration.api_key)})
+      @response = client.call(self.operation, {message: self.message.reverse_merge(userKey: ThreeDeeCart.configuration.api_key)})
       @hash = @response.hash[:envelope][:body]
       # Return the hash if successful
       if api_error? # Return a human readable error for API error
