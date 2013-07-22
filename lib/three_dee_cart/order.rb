@@ -141,7 +141,7 @@ module ThreeDeeCart
 
     # Custom setter for affiliate information, returns ThreeDeeCart::AffiliateInformation
     def affiliate_information=(value)
-      @shipping_address = ThreeDeeCart::AffiliateInformation.new(value) if not value.nil?
+      @affiliate_information = ThreeDeeCart::AffiliateInformation.new(value) if not value.nil?
     end
 
     # Custom setter for shipping information, returns ThreeDeeCart::Shipment and ThreeDeeCart::Item for order items
