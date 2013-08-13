@@ -97,6 +97,13 @@ describe ThreeDeeCart::Order do
       order.total.should eq("1")
     end
 
+    it "should return a valid order for a valid request with multiple transactions" do
+      savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderWithMultipleTransactions.xml"))
+      lambda {
+        order = ThreeDeeCart::Order.find({id: "test"})
+      }.should_not raise_error
+    end
+
     it "should return a valid order array for a valid request which returns multiple orders" do
       savon.expects(:get_order).with({message: {id: "test", userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getOrderMultiple.xml"))
       order = ThreeDeeCart::Order.find({id: "test"})

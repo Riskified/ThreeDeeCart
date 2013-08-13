@@ -124,9 +124,16 @@ module ThreeDeeCart
       @billing_address = ThreeDeeCart::BillingAddress.new(value) if not value.nil?
     end
 
-    # Custom setter for transaction, returns ThreeDeeCart::Transaction
+    # Custom setter for transaction, returns an array of ThreeDeeCart::Transactions
     def transaction=(value)
-      @transaction = ThreeDeeCart::Transaction.new(value) if not value.nil?
+      @transaction ||= []
+      if value.is_a?(Array)
+        value.each do |transaction_entry|
+          @transaction << ThreeDeeCart::Transaction.new(transaction_entry)
+        end
+      elsif value.is_a?(Hash) 
+        @transaction << ThreeDeeCart::Transaction.new(value)
+      end
     end
 
     # Custom setter for comments

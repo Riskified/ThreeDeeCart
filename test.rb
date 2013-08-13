@@ -3,11 +3,20 @@
    # config.api_key = "27941608346427720279416083464277"
   end
 
-  #AB-1000
-ThreeDeeCart::Order.find({storeUrl: 'riskified.3dcartstores.com', 
-                          userKey:'27941608346427720279416083464277',
-                          batchSize: 1,
-                          startNum: 1})
+   #ThreeDeeCart::Order.count(storeUrl: "onetri.3dcartstores.com", userKey: "37366307182504920373663071825049")
+
+   ThreeDeeCart::Order.find(storeUrl: "onetri.3dcartstores.com", 
+                             userKey: "xxxx", 
+                             startNum: 0,
+                             batchSize: 50,
+                             dateFrom: "08/10/2013",
+                             status: "New")
+
+   #AB-1000
+# ThreeDeeCart::Order.find({storeUrl: 'riskified.3dcartstores.com', 
+#                           userKey:'27941608346427720279416083464277',
+#                           batchSize: 1,
+#                           startNum: 1})
 #ThreeDeeCart::Order.find({storeUrl: "riskified.3dcartstores.com", startNum: 0, batchSize: 10})
   #ThreeDeeCart::Order.update_shipment({storeUrl: "riskified.3dcartstores.com", invoiceNum: "AB-1000", tracking: "12312332", shipmentDate: "2013-07-18 15:08:30"})
 
