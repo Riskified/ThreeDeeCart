@@ -28,6 +28,7 @@ module ThreeDeeCart
     attr_accessor :referer
     attr_accessor :weight
     attr_accessor :checkout_questions
+    attr_accessor :pay_token
 
     attr_reader :transaction
     attr_reader :billing_address
