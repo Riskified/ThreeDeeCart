@@ -20,6 +20,7 @@ module ThreeDeeCart
     attr_accessor :taxable
     attr_accessor :date_added
     attr_accessor :page_added
+    attr_accessor :gift_certificate_code
 
     # Getter for product name
     def name
