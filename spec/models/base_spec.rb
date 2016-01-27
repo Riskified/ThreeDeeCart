@@ -5,18 +5,18 @@ describe ThreeDeeCart::Base do
 
   describe "#new" do
     it "should not accept invalid attributes" do
-      lambda {
+      expect {
         base = ThreeDeeCart::Base.new({invalid_attribute: true})
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
 
     it "should allow assignment of a valid, existing attribute" do
       @valid = nil
-      lambda {
+      expect {
         @valid = BaseWithValidAttribute.new(valid_attribute: true)
-      }.should_not raise_error
+      }.to_not raise_error
 
-      @valid.valid_attribute.should eq(true)
+      expect(@valid.valid_attribute).to eq(true)
     end
   end
 end

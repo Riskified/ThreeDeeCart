@@ -22,7 +22,7 @@ describe ThreeDeeCart::Customer do
     end
 
     it "should respond to #find" do
-      ThreeDeeCart::Customer.respond_to?(:find).should eq(true)
+      expect(ThreeDeeCart::Customer).to respond_to :find
     end
 
     it "should return as successful" do
@@ -30,15 +30,15 @@ describe ThreeDeeCart::Customer do
 
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomer.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
-      customer.customer_id.to_i.should eq(1)
-      customer.shipping_address.first_name.should eq("John")
+      expect(customer.customer_id.to_i).to eq(1)
+      expect(customer.shipping_address.first_name).to eq("John")
     end
 
     it "should return array when multiple customers are returned" do
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest" }}).returns(File.read("spec/fixtures/getCustomerMultiple.xml"))
       customer = ThreeDeeCart::Customer.find({id: 1})
-      customer[0].customer_id.to_i.should eq(1)
-      customer[1].customer_id.to_i.should eq(1)
+      expect(customer[0].customer_id.to_i).to eq(1)
+      expect(customer[1].customer_id.to_i).to eq(1)
     end
   end
 
@@ -52,7 +52,7 @@ describe ThreeDeeCart::Customer do
     end
 
     it "should respond to #edit" do
-      ThreeDeeCart::Customer.respond_to?(:edit).should eq(true)
+      expect(ThreeDeeCart::Customer).to respond_to :edit
     end
 
     it "should return true when valid customer data" do
@@ -60,13 +60,13 @@ describe ThreeDeeCart::Customer do
       savon.expects(:edit_customer).with({message: {customerData: customer_data.to_query, action: customer_data.action, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/editCustomer.xml"))
 
       resp = ThreeDeeCart::Customer.edit(customer_data)
-      resp.should be_true
+      expect(resp).to be true
     end
 
     it "should return false when customer data is invalid" do
       customer_data = ThreeDeeCart::CustomerData.new({action: :update})
       resp = ThreeDeeCart::Customer.edit(customer_data)
-      resp.should be_false
+      expect(resp).to be false
     end
 
     it "should return false a non successful result is returned" do
@@ -74,7 +74,7 @@ describe ThreeDeeCart::Customer do
       savon.expects(:edit_customer).with({message: {customerData: customer_data.to_query, action: customer_data.action, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/editCustomerFailure.xml"))
 
       resp = ThreeDeeCart::Customer.edit(customer_data)
-      resp.should be_false
+      expect(resp).to be false
     end
   end
 
@@ -88,13 +88,13 @@ describe ThreeDeeCart::Customer do
     end
 
     it "should respond to #count" do
-      ThreeDeeCart::Customer.respond_to?(:count).should eq(true)
+      expect(ThreeDeeCart::Customer).to respond_to :count
     end
 
     it "should return as int when successful" do
       savon.expects(:get_customer_count).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomerCount.xml"))
       count = ThreeDeeCart::Customer.count({id: 1})
-      count.should eq(15473)
+      expect(count).to eq(15473)
     end
   end
 
@@ -127,34 +127,34 @@ describe ThreeDeeCart::Customer do
     end
 
     it "should accept a valid hash to constructor" do
-      lambda {
+      expect {
         @customer = ThreeDeeCart::Customer.new(@valid_hash)
-      }.should_not raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to_not raise_error
     end
 
     it "should raise an exception for invalid constructor hash value" do
-      lambda {
+      expect {
         @e_product = ThreeDeeCart::Customer.new(@invalid_hash)
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
 
     describe "invalid values for complex enteties" do
-      it "should raise an exception for invalid value for categories object" do 
-        lambda {
+      it "should raise an exception for invalid value for categories object" do
+        expect {
           @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_shipping_address)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for Extra Fields object" do 
-        lambda {
+      it "should raise an exception for invalid value for Extra Fields object" do
+        expect {
           @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_billing_address)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for price levels object" do 
-        lambda {
+      it "should raise an exception for invalid value for price levels object" do
+        expect {
           @customer = ThreeDeeCart::Customer.new(@hash_with_invalid_additional_fields)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
     end
   end

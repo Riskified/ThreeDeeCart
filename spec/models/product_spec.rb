@@ -95,7 +95,7 @@ describe ThreeDeeCart::Product do
     end
 
     it "should respond to #find" do
-      ThreeDeeCart::Product.respond_to?(:find).should eq(true)
+      expect(ThreeDeeCart::Product).to respond_to :find
     end
 
     it "should return as successful" do
@@ -103,7 +103,7 @@ describe ThreeDeeCart::Product do
 
       savon.expects(:get_product).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProduct.xml"))
       product = ThreeDeeCart::Product.find({id: 1})
-      product.product_id.should eq("1001")
+      expect(product.product_id).to eq("1001")
     end
 
     it "should return a valid product array for a valid request which returns multiple products" do
@@ -111,8 +111,8 @@ describe ThreeDeeCart::Product do
 
       savon.expects(:get_product).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductMultiple.xml"))
       product = ThreeDeeCart::Product.find({id: 1})
-      product[0].product_id.should eq("1001")
-      product[1].product_id.should eq("1001")
+      expect(product[0].product_id).to eq("1001")
+      expect(product[1].product_id).to eq("1001")
     end
   end
 
@@ -126,13 +126,13 @@ describe ThreeDeeCart::Product do
     end
 
     it "should respond to #count" do
-      ThreeDeeCart::Product.respond_to?(:count).should eq(true)
+      expect(ThreeDeeCart::Product).to respond_to :count
     end
 
     it "should return as int when successful" do
       savon.expects(:get_product_count).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductCount.xml"))
       count = ThreeDeeCart::Product.count({id: 1})
-      count.should eq(6041)
+      expect(count).to eq(6041)
     end
   end
 
@@ -146,13 +146,13 @@ describe ThreeDeeCart::Product do
     end
 
     it "should respond to #inventory_count" do
-      ThreeDeeCart::Product.respond_to?(:inventory_count).should eq(true)
+      expect(ThreeDeeCart::Product).to respond_to :inventory_count
     end
 
     it "should return as int when successful" do
       savon.expects(:get_product_inventory).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getProductInventory.xml"))
       count = ThreeDeeCart::Product.inventory_count({id: 1})
-      count.should eq(10)
+      expect(count).to eq(10)
     end
   end
 
@@ -166,70 +166,70 @@ describe ThreeDeeCart::Product do
     end
 
     it "should respond to #update_inventory" do
-      ThreeDeeCart::Product.should respond_to(:update_inventory)
+      expect(ThreeDeeCart::Product).to respond_to(:update_inventory)
     end
 
     it "should return a valid new inventory quantity" do
       savon.expects(:update_product_inventory).with({message: {quantity: 1, userKey: "testtesttest", replaceStock: true}}).returns(File.read("spec/fixtures/updateProductInventory.xml"))
       count = ThreeDeeCart::Product.update_inventory({quantity: 1, replaceStock: true})
-      count.should eq(1)
+      expect(count).to eq(1)
     end
   end
 
   describe "#new" do
     it "should accept a valid hash to constructor" do
-      lambda {
+      expect {
         @product = ThreeDeeCart::Product.new(@valid_hash)
-      }.should_not raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to_not raise_error
     end
 
     it "should raise an exception for invalid constructor hash value" do
-      lambda {
+      expect {
         @product = ThreeDeeCart::Product.new(@invalid_hash)
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
 
     describe "invalid values for complex enteties" do
-      it "should raise an exception for invalid value for categories object" do 
-        lambda {
+      it "should raise an exception for invalid value for categories object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_categories)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for Extra Fields object" do 
-        lambda {
+      it "should raise an exception for invalid value for Extra Fields object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_extra_fields)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for price levels object" do 
-        lambda {
+      it "should raise an exception for invalid value for price levels object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_price_level)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for eProduct object" do 
-        lambda {
+      it "should raise an exception for invalid value for eProduct object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_e_product)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for rewards object" do 
-        lambda {
+      it "should raise an exception for invalid value for rewards object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_rewards)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for images object" do 
-        lambda {
+      it "should raise an exception for invalid value for images object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_images)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
 
-      it "should raise an exception for invalid value for options object" do 
-        lambda {
+      it "should raise an exception for invalid value for options object" do
+        expect {
           @product = ThreeDeeCart::Product.new(@hash_with_invalid_options)
-        }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
+        }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttributeType)
       end
     end
   end

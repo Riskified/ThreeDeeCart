@@ -18,7 +18,7 @@ describe ThreeDeeCart::BillingAddress do
   describe "#email" do
     it "should respond to #email" do
       @billing_address = ThreeDeeCart::BillingAddress.new(@valid_hash)
-      @billing_address.respond_to?(:email).should be_true
+      expect(@billing_address.email).to eq 'test@testinginc.com'
     end
   end
 end

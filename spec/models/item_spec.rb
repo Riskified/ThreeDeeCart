@@ -21,15 +21,15 @@ describe ThreeDeeCart::Item do
 
   describe "#new" do
     it "should accept a valid hash into constructor" do
-      lambda {
+      expect {
         @item = ThreeDeeCart::Item.new(@valid_hash)
-      }.should_not raise_error
+      }.to_not raise_error
     end
 
     it "should raise an exception for invalid constractor hash" do
-      lambda {
+      expect {
         @item = ThreeDeeCart::Item.new(@invalid_hash)
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
   end
 
@@ -40,11 +40,11 @@ describe ThreeDeeCart::Item do
     end
 
     it "should respond to #name" do
-      @item.respond_to?(:name).should be_true
+      expect(@item.respond_to?(:name)).to be true
     end
 
     it "should return product name" do
-      @item.name.should eq(@valid_hash[:product_name])
+      expect(@item.name).to eq(@valid_hash[:product_name])
     end
   end
 
@@ -54,15 +54,15 @@ describe ThreeDeeCart::Item do
     end
 
     it "should respond to #price" do
-      @item.respond_to?(:price).should be_true
+      expect(@item.respond_to?(:price)).to be true
     end
 
     it "should return a float value" do
-      @item.price.is_a?(Float).should be_true
+      expect(@item.price.is_a?(Float)).to be true
     end
 
     it "should return a valid casting" do
-      @item.price.should eq(@valid_hash[:unit_price].to_f)
+      expect(@item.price).to eq(@valid_hash[:unit_price].to_f)
     end
   end
 
@@ -72,15 +72,15 @@ describe ThreeDeeCart::Item do
     end
 
     it "should respond to #cost" do
-      @item.respond_to?(:cost).should be_true
+      expect(@item.respond_to?(:cost)).to be true
     end
 
     it "should return a float value" do
-      @item.cost.is_a?(Float).should be_true
+      expect(@item.cost.is_a?(Float)).to be true
     end
 
     it "should return a valid casting" do
-      @item.cost.should eq(@valid_hash[:unit_cost].to_f)
+      expect(@item.cost).to eq(@valid_hash[:unit_cost].to_f)
     end
   end
 
@@ -90,15 +90,15 @@ describe ThreeDeeCart::Item do
     end
 
     it "should respond to #cost" do
-      @item.respond_to?(:option_price).should be_true
+      expect(@item).to respond_to :option_price
     end
 
     it "should return a float value" do
-      @item.option_price.is_a?(Float).should be_true
+      expect(@item.option_price.is_a?(Float)).to be true
     end
 
     it "should return a valid casting" do
-      @item.option_price.should eq(@valid_hash[:option_price].to_f)
+      expect(@item.option_price).to eq(@valid_hash[:option_price].to_f)
     end
   end
 end

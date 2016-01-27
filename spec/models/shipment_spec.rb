@@ -28,15 +28,15 @@ describe ThreeDeeCart::Shipment do
 
   describe "#new" do
     it "should accept a valid hash to constructor" do
-      lambda {
+      expect {
         ThreeDeeCart::Shipment.new(@valid_hash)
-      }.should_not raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to_not raise_error
     end
 
     it "should raise an exception for invalid constructor hash value" do
-      lambda {
+      expect {
         ThreeDeeCart::Shipment.new(@invalid_hash)
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
   end
 
@@ -46,11 +46,11 @@ describe ThreeDeeCart::Shipment do
     end
 
     it "should respond to #full_name" do
-      @shipment.respond_to?(:full_name).should be_true
+      expect(@shipment).to respond_to :full_name
     end
 
     it "should return the full name" do
-      @shipment.full_name.should eq("John Doe")
+      expect(@shipment.full_name).to eq("John Doe")
     end
   end
 end
