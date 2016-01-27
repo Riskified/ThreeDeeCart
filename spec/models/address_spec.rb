@@ -18,22 +18,22 @@ describe ThreeDeeCart::Address do
 
   describe "#new" do
     it "should accept a valid hash into constructor" do
-      lambda {
+      expect {
         @address = ThreeDeeCart::Address.new(@valid_hash)
-      }.should_not raise_error
+      }.not_to raise_error
     end
 
     it "should raise an exception for invalid constractor hash" do
-      lambda {
+      expect {
         @address = ThreeDeeCart::Address.new(@invalid_hash)
-      }.should raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
+      }.to raise_error(ThreeDeeCart::Exceptions::InvalidAttribute)
     end
   end
 
   describe "#full_name" do
     it "should return a full name" do
       @billing_address = ThreeDeeCart::Address.new(@valid_hash)
-      @billing_address.full_name.should eql("John Doe")
+      expect(@billing_address.full_name).to eql("John Doe")
     end
   end
 end

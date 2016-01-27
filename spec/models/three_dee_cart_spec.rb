@@ -8,7 +8,7 @@ describe ThreeDeeCart do
       config_file = File.join(Dir.pwd, "spec", "fixtures", "test_config.yml")
       config = ThreeDeeCart.load_configuration(config_file)
 
-      ThreeDeeCart.configuration.wsdl.should eq("http://example.com/?wsdl")
+      expect(ThreeDeeCart.configuration.wsdl).to eq("http://example.com/?wsdl")
     end
   end
 
@@ -20,8 +20,8 @@ describe ThreeDeeCart do
         config.api_key = "testtesttest"
       end
 
-      ThreeDeeCart.configuration.wsdl.should eq("http://example.com?wsdl")
-      ThreeDeeCart.configuration.api_key.should eq("testtesttest")
+      expect(ThreeDeeCart.configuration.wsdl).to eq("http://example.com?wsdl")
+      expect(ThreeDeeCart.configuration.api_key).to eq("testtesttest")
 
     end
   end

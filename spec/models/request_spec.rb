@@ -17,15 +17,15 @@ describe ThreeDeeCart::Request do
 
   describe "#new" do
     it "should create a valid request instance for a valid operation" do
-      lambda {
+      expect {
         req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
-      }.should_not raise_error
+      }.to_not raise_error
     end
 
     it "should raise an error for an invalid operation" do
-      lambda {
+      expect {
         req = ThreeDeeCart::Request.new(:invalid_operation, {id: 1})
-      }.should raise_error(ThreeDeeCart::Request::Exceptions::InvalidOperation)
+      }.to raise_error(ThreeDeeCart::Request::Exceptions::InvalidOperation)
     end
   end
 
@@ -33,12 +33,12 @@ describe ThreeDeeCart::Request do
     it "should return a valid response hash for a valid request" do
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(File.read("spec/fixtures/getCustomer.xml"))
       @req = nil
-      lambda {
+      expect {
         @req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
         @req.invoke
-      }.should_not raise_error
+      }.to_not raise_error
 
-      @req.hash.keys.should include(:get_customer_response)
+      expect(@req.hash.keys).to include(:get_customer_response)
     end
 
     it "should raise an error when WSDL responds with an error xml" do
@@ -47,10 +47,10 @@ describe ThreeDeeCart::Request do
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
-      lambda {
+      expect {
         @req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
         @req.invoke
-      }.should raise_error(ThreeDeeCart::Request::Exceptions::ApiError)
+      }.to raise_error(ThreeDeeCart::Request::Exceptions::ApiError)
     end
 
     it "should raise an error when WSDL responds http error code" do
@@ -59,10 +59,10 @@ describe ThreeDeeCart::Request do
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
-      lambda {
+      expect {
         @req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
         @req.invoke
-      }.should raise_error(ThreeDeeCart::Request::Exceptions::HttpError)
+      }.to raise_error(ThreeDeeCart::Request::Exceptions::HttpError)
     end
 
     it "should raise an error when WSDL responds soap fault xml" do
@@ -71,10 +71,10 @@ describe ThreeDeeCart::Request do
       savon.expects(:get_customer).with({message: {id: 1, userKey: "testtesttest"}}).returns(response)
       
       @req = nil
-      lambda {
+      expect {
         @req = ThreeDeeCart::Request.new(:get_customer, {id: 1})
         @req.invoke
-      }.should raise_error(ThreeDeeCart::Request::Exceptions::SoapError)
+      }.to raise_error(ThreeDeeCart::Request::Exceptions::SoapError)
     end
   end
 end
